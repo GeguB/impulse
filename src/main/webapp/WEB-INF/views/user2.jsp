@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ page session="false" %>
 <html>
 <head>
 	<title>User Page</title>
@@ -12,17 +13,18 @@
 	</style>
 </head>
 <body>
-
 <h1>
-    Add a Person
+	Add a User
 </h1>
+
 <c:url var="addAction" value="/user/add" ></c:url>
-<form:form action="${addAction}" commandName="user">
+
+<form:form action="${addAction}" commandName="username">
 <table>
-	<c:if test="${!empty users.username}">
+	<c:if test="${!empty user.username}">
 	<tr>
 		<td>
-			<form:label path="ID">
+			<form:label path="id">
 				<spring:message text="ID"/>
 			</form:label>
 		</td>
@@ -32,26 +34,26 @@
 		</td> 
 	</tr>
 	</c:if>
-<!-- 	<tr> -->
-<!-- 		<td> -->
-<%-- 			<form:label path="username"> --%>
-<%-- 				<spring:message text="Name"/> --%>
-<%-- 			</form:label> --%>
-<!-- 		</td> -->
-<!-- 		<td> -->
-<%-- 			<form:input path="username" /> --%>
-<!-- 		</td>  -->
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td> -->
-<%-- 			<form:label path="email"> --%>
-<%-- 				<spring:message text="email"/> --%>
-<%-- 			</form:label> --%>
-<!-- 		</td> -->
-<!-- 		<td> -->
-<%-- 			<form:input path="email" /> --%>
-<!-- 		</td> -->
-<!-- 	</tr> -->
+	<tr>
+		<td>
+			<form:label path="user">
+				<spring:message text="user"/>
+			</form:label>
+		</td>
+		<td>
+			<form:input path="user" />
+		</td> 
+	</tr>
+	<tr>
+		<td>
+			<form:label path="email">
+				<spring:message text="email"/>
+			</form:label>
+		</td>
+		<td>
+			<form:input path="email" />
+		</td>
+	</tr>
 	<tr>
 		<td colspan="2">
 			<c:if test="${!empty user.username}">
@@ -66,18 +68,24 @@
 	</tr>
 </table>	
 </form:form>
+<br>
+<h3>Users List</h3>
 <c:if test="${!empty listUsers}">
 	<table class="tg">
 	<tr>
 		<th width="80">User ID</th>
 		<th width="120">User Name</th>
-		<th width="120">User email</th>
+		<th width="120">User Country</th>
+		<th width="60">Edit</th>
+		<th width="60">Delete</th>
 	</tr>
 	<c:forEach items="${listUsers}" var="user">
 		<tr>
 			<td>${user.id}</td>
 			<td>${user.username}</td>
 			<td>${user.email}</td>
+			<td><a href="<c:url value='/edit/${user.id}' />" >Edit</a></td>
+			<td><a href="<c:url value='/remove/${user.id}' />" >Delete</a></td>
 		</tr>
 	</c:forEach>
 	</table>

@@ -8,18 +8,23 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="PERSON")
+@Table(name="users")
 public class User {
 
 	@Id
 	@Column(name="id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	private String username;
+	private String email;
+	private double account;
+	private int enabled;
+			
+	public User(){
+		
+	}
 	
-	private String name;
 	
-	private String country;
-
 	public int getId() {
 		return id;
 	}
@@ -28,24 +33,41 @@ public class User {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getCountry() {
-		return country;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setCountry(String country) {
-		this.country = country;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	
+
+	public double getAccount() {
+		return account;
+	}
+
+	public void setAccount(double account) {
+		this.account = account;
+	}
+
+	public int getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(int enabled) {
+		this.enabled = enabled;
+	}
+
 	@Override
-	public String toString(){
-		return "id="+id+", name="+name+", country="+country;
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", email=" + email + ", account=" + account + ", enabled="
+				+ enabled + "]";
 	}
 }
