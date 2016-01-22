@@ -14,7 +14,7 @@
 <body>
 
 <h1>
-    Add a Person
+    Add a User
 </h1>
 <c:url var="addAction" value="/user/add" ></c:url>
 <form:form action="${addAction}" commandName="user">
@@ -32,26 +32,36 @@
 		</td> 
 	</tr>
 	</c:if>
-<!-- 	<tr> -->
-<!-- 		<td> -->
-<%-- 			<form:label path="username"> --%>
-<%-- 				<spring:message text="Name"/> --%>
-<%-- 			</form:label> --%>
-<!-- 		</td> -->
-<!-- 		<td> -->
-<%-- 			<form:input path="username" /> --%>
-<!-- 		</td>  -->
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td> -->
-<%-- 			<form:label path="email"> --%>
-<%-- 				<spring:message text="email"/> --%>
-<%-- 			</form:label> --%>
-<!-- 		</td> -->
-<!-- 		<td> -->
-<%-- 			<form:input path="email" /> --%>
-<!-- 		</td> -->
-<!-- 	</tr> -->
+	<tr>
+		<td>
+			<form:label path="username">
+				<spring:message text="Name"/>
+			</form:label>
+		</td>
+		<td>
+			<form:input path="username" />
+		</td> 
+	</tr>
+	<tr>
+		<td>
+			<form:label path="email">
+				<spring:message text="email"/>
+			</form:label>
+		</td>
+		<td>
+			<form:input path="email" />
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<form:label path="password">
+				<spring:message text="password"/>
+			</form:label>
+		</td>
+		<td>
+			<form:input path="password" />
+		</td>
+	</tr>
 	<tr>
 		<td colspan="2">
 			<c:if test="${!empty user.username}">
@@ -78,6 +88,9 @@
 			<td>${user.id}</td>
 			<td>${user.username}</td>
 			<td>${user.email}</td>
+			<td>${user.password}</td>
+			<td><a href="<c:url value='/edit/${user.id}' />" >Edit</a></td>
+            <td><a href="<c:url value='/remove/${user.id}' />" >Delete</a></td>
 		</tr>
 	</c:forEach>
 	</table>

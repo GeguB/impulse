@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import pl.boguszg.impulse.model.User;
 import pl.boguszg.impulse.service.UserService;
@@ -45,6 +46,29 @@ public class UserController {
 		return "redirect:/users";
 
 	}
+	
+	// For add and update user both
+	@RequestMapping(value = "/register/new", method = RequestMethod.POST)
+	public String registerUser(@ModelAttribute("user") User p) {
+		
+		if (p.getId() == 0) {
+			// new user, add it
+			this.userService.addUser(p);
+		} 
+		
+		return "redirect:/login";
+		
+	}
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public ModelAndView register(@ModelAttribute("user") User p) {
+		
+		ModelAndView model = new ModelAndView();
+		
+		model.setViewName("register");
+		
+		return model;
+	}
+	
 
 	@RequestMapping("/remove/{id}")
 	public String removeUser(@PathVariable("id") int id) {

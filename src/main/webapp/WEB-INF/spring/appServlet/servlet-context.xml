@@ -50,14 +50,20 @@
             </beans:props>
         </beans:property>
     </beans:bean>
+
+    <context:component-scan base-package="pl.boguszg.impulse" />
      
     <beans:bean id="userDAO" class="pl.boguszg.impulse.dao.UserDAOImpl">
         <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </beans:bean>
+
+  
     <beans:bean id="userService" class="pl.boguszg.impulse.service.UserServiceImpl">
         <beans:property name="userDAO" ref="userDAO"></beans:property>
     </beans:bean>
-    <context:component-scan base-package="pl.boguszg.impulse" />
+
+	<!-- Spring MVC Static Resources mapping -->
+	<resources mapping="/static/**" location="/static/" cache-period="31556926" />
      
     <tx:annotation-driven transaction-manager="transactionManager"/>
      

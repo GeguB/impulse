@@ -88,7 +88,7 @@
 				</div>
 				<div class="registration">
 					Don't have an account yet?<br /> 
-					<a class="" href="#"> Create an account </a>
+					<a class="" href="register"> Create an account </a>
 				</div>
 			</form>
 		</div>
@@ -97,18 +97,5 @@
 	<script src="<c:url value='/static/js/jquery.js' />"></script>
 	<script src="<c:url value='/static/js/bootstrap.min.js' />"></script>
 
-	<!--BACKSTRETCH-->
-	<!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
-	<script type="text/javascript"
-		src="<c:url value='/static/js/jquery.backstretch.min.js' />">
-		
-	</script>
-	<!-- 
-	<script>
-		$.backstretch("<c:url value='/static/img/login-bg.jpg' />", {
-			speed : 500
-		});
-	</script>
-	 -->
 </body>
 </html>

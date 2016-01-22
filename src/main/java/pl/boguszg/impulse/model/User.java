@@ -19,6 +19,7 @@ public class User {
 	private String email;
 	private double account;
 	private int enabled;
+	private String password;
 			
 	public User(){
 		
@@ -64,6 +65,16 @@ public class User {
 	public void setEnabled(int enabled) {
 		this.enabled = enabled;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 
 	@Override
 	public String toString() {
