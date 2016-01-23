@@ -30,7 +30,7 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/", "/index", "/welcome**" }, method = RequestMethod.GET)
 	public ModelAndView welcomePage() {
 
 		ModelAndView model = new ModelAndView();

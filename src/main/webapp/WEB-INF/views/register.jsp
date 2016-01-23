@@ -1,6 +1,6 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
@@ -51,82 +51,93 @@
 
 
 
-	<title>User Page</title>
-	<style type="text/css">
-		.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
-		.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
-		.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
-		.tg .tg-4eph{background-color:#f9f9f9}
-	</style>
+<title>Register Page</title>
+<style type="text/css">
+.tg {
+	border-collapse: collapse;
+	border-spacing: 0;
+	border-color: #ccc;
+}
+
+.tg td {
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	padding: 10px 5px;
+	border-style: solid;
+	border-width: 1px;
+	overflow: hidden;
+	word-break: normal;
+	border-color: #ccc;
+	color: #333;
+	background-color: #fff;
+}
+
+.tg th {
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	font-weight: normal;
+	padding: 10px 5px;
+	border-style: solid;
+	border-width: 1px;
+	overflow: hidden;
+	word-break: normal;
+	border-color: #ccc;
+	color: #333;
+	background-color: #f0f0f0;
+}
+
+.tg .tg-4eph {
+	background-color: #f9f9f9
+}
+</style>
 </head>
-<body>
+<body onload='document.loginForm.username.focus();'
+	onload='document.loginForm.username.focus();'>
 
 
-	<div class=title> Impulse - mobile network provider</div>
+	<div class=title>Impulse - mobile network provider</div>
 	<div id="login-page">
-			<div class="container">
-	
-<c:url var="registerAction" value="/register/new" ></c:url>
-<form:form name='loginForm' class="form-login" action="${registerAction}" commandName="user">
-<h2 class="form-login-heading">Login with Phone number and Password</h2>
+		<div class="container">
+
+			<c:url var="registerAction" value="/register/new"></c:url>
+			<form:form name='loginForm' class="form-login"
+				action="${registerAction}" commandName="user">
+				<h2 class="form-login-heading">Login with Phone number and
+					Password</h2>
 
 				<div class="login-wrap">
-<table>
-	<c:if test="${!empty users.username}">
-	<tr>
-		<td>
-			<form:label path="ID">
-				<spring:message text="ID"/>
-			</form:label>
-		</td>
-		<td>
-			<form:input path="id" readonly="true" size="8"  disabled="true" />
-			<form:hidden path="id" />
-		</td> 
-	</tr>
-	</c:if>
-	<tr>
-		<td>
-			<form:label path="username">
-				<spring:message text="Name"/>
-			</form:label>
-		</td>
-		<td>
-			<form:input path="username" />
-		</td> 
-	</tr>
-	<tr>
-		<td>
-			<form:label path="email">
-				<spring:message text="email"/>
-			</form:label>
-		</td>
-		<td>
-			<form:input path="email" />
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<form:label path="password">
-				<spring:message text="password"/>
-			</form:label>
-		</td>
-		<td>
-			<form:input path="password" />
-		</td>
-	</tr>
-	<tr>
-		<td colspan="3">
-		
-			<c:if test="${empty user.username}">
-				<input type="submit"
-					value="<spring:message text="Add User"/>" />
-			</c:if>
-		</td>
-	</tr>
-</table>	
-</div>
-</form:form>
-</div></div>
+					<c:if test="${!empty users.username}">
+
+						<form:label path="ID">
+							<spring:message text="ID" />
+						</form:label>
+
+						<form:input path="id" readonly="true" size="8" disabled="true" />
+						<form:hidden path="id" />
+
+					</c:if>
+
+
+					<form:input path="username" type="name" class="form-control"
+						placeholder="username" name='username' />
+					<br />
+					<form:input path="email" type="email" class="form-control"
+						placeholder="e-mail" name='email' />
+					<br />
+					<form:input path="password" type="password" class="form-control"
+						placeholder="Password" name='password' />
+					<br />
+
+					<c:if test="${empty user.username}">
+						<input type="submit" class="btn btn-theme btn-block"
+							value="<spring:message text="Register"/>" />
+					</c:if>
+					<span>Don't have an account yet?<br /> <a class=""
+						href="login"> Create an account </a>
+					</span>
+				</div>
+			</form:form>
+		</div>
+	</div>
 </body>
 </html>
