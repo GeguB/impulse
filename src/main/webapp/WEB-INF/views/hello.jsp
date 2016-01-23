@@ -25,6 +25,8 @@
 				User : ${pageContext.request.userPrincipal.name} | <a
 					href="javascript:formSubmit()"> Logout</a>
 			</h2>
+		<br /><br /><br />
+		<h1><a href="landing">GoTo Landing Page</a></h1>
 		</c:if>
 	</sec:authorize>
 	

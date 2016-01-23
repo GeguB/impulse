@@ -24,15 +24,6 @@
 	<!--logo end-->
 	<div class="top-menu">
 		<ul class="nav pull-right top-menu">
-			<li><c:choose>
-					<c:when test="${pageContext.request.userPrincipal.name != null}">
-				Welcome, ${pageContext.request.userPrincipal.name}
-			</c:when>
-					<c:otherwise>
-						<a href="login">Log in</a>
-					</c:otherwise>
-				</c:choose></li>
-
 			<li><c:url value="/j_spring_security_logout" var="logoutUrl" />
 
 				<script>
@@ -45,8 +36,26 @@
 						value="${_csrf.token}" />
 				</form> <a class="logout" href="javascript:formSubmit()">Logout</a></li>
 		</ul>
+		<div class="nav notify-row" id="top_menu">
+			<ul class="nav">
+				<c:choose>
+					<c:when test="${pageContext.request.userPrincipal.name != null}">
+						<li class="pull-left col-md-4">Welcome,
+							${pageContext.request.userPrincipal.name}</li>
+						<li class="col-md-8">Your account balance: <p class="centered">BALANCE</p>
+						</li>
+					</c:when>
+					<c:otherwise>
+						<a href="login">Log in</a>
+					</c:otherwise>
+				</c:choose>
+			</ul>
+		</div>
 	</div>
 </header>
 
 <!--header end-->
-<br /><br /><br /><br />
+<br />
+<br />
+<br />
+<br />

@@ -82,6 +82,19 @@ public class HomeController {
 		return model;
 
 	}
+	@RequestMapping(value = "/landing", method = RequestMethod.GET)
+	public ModelAndView landingPage() {
+		
+		
+		ModelAndView model = new ModelAndView();
+
+		model.setViewName("landing");
+		
+		logger.info("Accessed admin!");
+		
+		return model;
+		
+	}
 
 	// Spring Security see this :
 	@RequestMapping(value = "/login", method = RequestMethod.GET)

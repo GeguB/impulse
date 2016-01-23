@@ -105,7 +105,6 @@
 			<div class="container">
 				<h1>YOU ARE ALREADY LOGGED IN
 					${pageContext.request.userPrincipal.name}, YOU DUMBFUCK!</h1>
-			</div>
 			<c:url value="/j_spring_security_logout" var="logoutUrl" />
 
 			<script>
@@ -117,7 +116,8 @@
 				<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
 			</form>
-			<a class="logout" href="javascript:formSubmit()">Logout</a>
+			<h1><a class="logout" href="javascript:formSubmit()"> LOG YO'SELF THE FUCK AWAY!</a></h1>
+			</div>
 		</c:otherwise>
 	</c:choose>
 
