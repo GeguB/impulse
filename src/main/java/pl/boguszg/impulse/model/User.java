@@ -11,10 +11,11 @@ import javax.persistence.Table;
 @Table(name="users")
 public class User {
 
-	@Id
-	@Column(name="id")
+
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	@Id
+	@Column(name="username")
 	private String username;
 	private String email;
 	private double account;

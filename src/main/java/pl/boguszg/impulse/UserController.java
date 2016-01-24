@@ -33,12 +33,30 @@ public class UserController {
 		return "user";
 	}
 
+	@RequestMapping(value = "/landing", method = RequestMethod.GET)
+	public String landingPage(Model model) {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User u = new User();
+		if (name != "anonymousUser") {
+			u = this.userService.getUserByName(name);
+		}
+		model.addAttribute("user", u);
+
+		return "landing";
+
+	}
+
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public String showProfile(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    String name = auth.getName();
-	    User u = new User();
-		model.addAttribute("user", name);
+		String name = auth.getName();
+		User u = new User();
+		if (name != "anonymousUser") {
+			u = this.userService.getUserByName(name);
+		}
+		model.addAttribute("user", u);
 		model.addAttribute("time", "too late");
 		return "profile";
 	}
@@ -58,40 +76,40 @@ public class UserController {
 		return "redirect:/users";
 
 	}
-	
+
 	// For add and update user both
 	@RequestMapping(value = "/register/new", method = RequestMethod.POST)
 	public String registerUser(@ModelAttribute("user") User p) {
-		
+
 		if (p.getId() == 0) {
 			// new user, add it
 			this.userService.addUser(p);
-		} 
-		
+		}
+
 		return "redirect:/login";
-		
+
 	}
+
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public ModelAndView register(@ModelAttribute("user") User p) {
-		
+
 		ModelAndView model = new ModelAndView();
-		
+
 		model.setViewName("register");
-		
+
 		return model;
 	}
-	
 
-	@RequestMapping("/remove/{id}")
-	public String removeUser(@PathVariable("id") int id) {
+	@RequestMapping("/remove/{name}")
+	public String removeUser(@PathVariable("name") String name) {
 
-		this.userService.removeUser(id);
+		this.userService.removeUser(name);
 		return "redirect:/users";
 	}
 
-	@RequestMapping("/edit/{id}")
-	public String editUser(@PathVariable("id") int id, Model model) {
-		model.addAttribute("user", this.userService.getUserById(id));
+	@RequestMapping("/edit/{name}")
+	public String editUser(@PathVariable("name") String name, Model model) {
+		model.addAttribute("user", this.userService.getUserByName(name));
 		model.addAttribute("listUsers", this.userService.listUsers());
 		return "user";
 	}

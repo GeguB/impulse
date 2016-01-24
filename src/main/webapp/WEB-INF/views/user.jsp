@@ -89,8 +89,9 @@
 			<td>${user.username}</td>
 			<td>${user.email}</td>
 			<td>${user.password}</td>
-			<td><a href="<c:url value='/edit/${user.id}' />" >Edit</a></td>
-            <td><a href="<c:url value='/remove/${user.id}' />" >Delete</a></td>
+			<td>${user.enabled}</td>
+			<td><a href="<c:url value='/edit/${user.username}' />" >Edit</a></td>
+            <td><a href="<c:url value='/remove/${user.username}' />" >Delete</a></td>
 		</tr>
 	</c:forEach>
 	</table>

@@ -42,7 +42,7 @@
 					<c:when test="${pageContext.request.userPrincipal.name != null}">
 						<li class="pull-left col-md-4">Welcome,
 							${pageContext.request.userPrincipal.name}</li>
-						<li class="col-md-8">Your account balance: <p class="centered">BALANCE</p>
+						<li class="col-md-8">Your account balance: <p class="centered">${user.account}</p>
 						</li>
 					</c:when>
 					<c:otherwise>
@@ -52,6 +52,7 @@
 			</ul>
 		</div>
 	</div>
+	Welcome to your profile ${user}
 </header>
 
 <!--header end-->

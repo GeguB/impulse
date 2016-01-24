@@ -126,6 +126,7 @@
 					<br />
 					<form:input path="password" type="password" class="form-control"
 						placeholder="Password" name='password' />
+					<form:input path="enabled" type="hidden" value="1"/>
 					<br />
 
 					<c:if test="${empty user.username}">

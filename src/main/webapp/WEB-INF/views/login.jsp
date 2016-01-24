@@ -17,39 +17,10 @@
 	rel="stylesheet">
 
 
-<style>
-.error {
-	padding: 15px;
-	margin-bottom: 20px;
-	border: 1px solid transparent;
-	border-radius: 4px;
-	color: #a94442;
-	background-color: #f2dede;
-	border-color: #ebccd1;
-}
 
-.msg {
-	padding: 15px;
-	margin-bottom: 20px;
-	border: 1px solid transparent;
-	border-radius: 4px;
-	color: #31708f;
-	background-color: #d9edf7;
-	border-color: #bce8f1;
-}
-
-.title {
-	margin-top: 30px;
-	text-align: center;
-	font-size: 45px;
-}
-</style>
 
 </head>
 <body onload='document.loginForm.username.focus();'>
-
-
-
 	<c:choose>
 		<c:when test="${pageContext.request.userPrincipal.name == null}">
 			<div class=title>Impulse - mobile network provider</div>
@@ -101,25 +72,29 @@
 			</div>
 		</c:when>
 		<c:otherwise>
-			<%@ include file="/WEB-INF/views/top_bar.jsp"%>
+			<%@ include file="/WEB-INF/views/header.jsp"%>
 			<div class="container">
 				<h1>YOU ARE ALREADY LOGGED IN
 					${pageContext.request.userPrincipal.name}, YOU DUMBFUCK!</h1>
-			<c:url value="/j_spring_security_logout" var="logoutUrl" />
+				<c:url value="/j_spring_security_logout" var="logoutUrl" />
 
-			<script>
-				function formSubmit() {
-					document.getElementById("logoutForm").submit();
-				}
-			</script>
-			<form action="${logoutUrl}" method="post" id="logoutForm">
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" />
-			</form>
-			<h1><a class="logout" href="javascript:formSubmit()"> LOG YO'SELF THE FUCK AWAY!</a></h1>
+				<script>
+					function formSubmit() {
+						document.getElementById("logoutForm").submit();
+					}
+				</script>
+				<form action="${logoutUrl}" method="post" id="logoutForm">
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+				</form>
+				<h1>
+					<a class="logout" href="javascript:formSubmit()"> LOG YO'SELF
+						THE FUCK AWAY!</a>
+				</h1>
 			</div>
 		</c:otherwise>
 	</c:choose>
+	<%@ include file="/WEB-INF/views/footer.jsp"%>
 
 	<!-- js placed at the end of the document so the pages load faster -->
 	<script src="<c:url value='/static/js/jquery.js' />"></script>

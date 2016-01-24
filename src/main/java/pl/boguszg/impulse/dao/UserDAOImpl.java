@@ -55,13 +55,21 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void removeUser(int id) {
+	public void removeUser(String name) {
 		Session session = this.sessionFactory.getCurrentSession();
-		User p = (User) session.load(User.class, new Integer(id));
+		User p = (User) session.load(User.class, new String(name));
 		if(null != p){
 			session.delete(p);
 		}
 		logger.info("User deleted successfully, User details="+p);
+	}
+
+	@Override
+	public User getUserByName(String name) {
+		Session session = this.sessionFactory.getCurrentSession();		
+		User p = (User) session.load(User.class, new String(name));
+		logger.info("User loaded successfully, User details="+p);
+		return p;
 	}
 
 }
