@@ -5,5 +5,10 @@
 	<%@ include file="/WEB-INF/views/top_bar.jsp" %>
 	<br /><br /><br />
 	<h2>Welcome to teh landing page</h2>
+	<a href="profile">My profile</a>
+	<a href="">Connection History</a>
+	<a href="">Account History</a>
+	<a href="">Price plans</a>
+	<a href="">Contact us</a>
 </body>
 </html>

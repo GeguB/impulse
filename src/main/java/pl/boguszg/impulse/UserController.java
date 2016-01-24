@@ -2,6 +2,8 @@ package pl.boguszg.impulse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,6 +31,16 @@ public class UserController {
 		model.addAttribute("user", new User());
 		model.addAttribute("listUsers", this.userService.listUsers());
 		return "user";
+	}
+
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	public String showProfile(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String name = auth.getName();
+	    User u = new User();
+		model.addAttribute("user", name);
+		model.addAttribute("time", "too late");
+		return "profile";
 	}
 
 	// For add and update user both
