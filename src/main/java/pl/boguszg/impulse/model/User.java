@@ -21,6 +21,7 @@ public class User {
 	private double account;
 	private int enabled;
 	private String password;
+	private String roles_role;
 			
 	public User(){
 		
@@ -74,6 +75,16 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+
+	public String getRoles_role() {
+		return roles_role;
+	}
+
+
+	public void setRoles_role(String roles_role) {
+		this.roles_role = roles_role;
 	}
 
 

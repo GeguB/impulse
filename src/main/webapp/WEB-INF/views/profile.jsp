@@ -11,7 +11,7 @@
 	<br /> Your registered email: ${user.email}
 	<br /> Your account balance: ${user.account}
 	<br /> ${user.enabled}
-	
+	<br /> ${user.roles_role}	
 	<br /> ${user.password}
 	
 	<br /> Current time is: ${time}

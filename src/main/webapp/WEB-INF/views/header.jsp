@@ -20,7 +20,7 @@
 			data-original-title="Toggle Navigation"></div>
 	</div>
 	<!--logo start-->
-	<a href="index" class="logo"><b>IMPULSE</b></a>
+	<a href="landing" class="logo"><b>IMPULSE</b></a>
 	<!--logo end-->
 	<div class="top-menu">
 		<ul class="nav pull-right top-menu">

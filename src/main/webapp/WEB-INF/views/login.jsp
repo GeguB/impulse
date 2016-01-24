@@ -17,13 +17,11 @@
 	rel="stylesheet">
 
 
-
-
 </head>
 <body onload='document.loginForm.username.focus();'>
 	<c:choose>
 		<c:when test="${pageContext.request.userPrincipal.name == null}">
-			<div class=title>Impulse - mobile network provider</div>
+			<div class='title'>Impulse - mobile network provider</div>
 			<div id="login-page">
 				<div class="container">
 					<form name='loginForm' class="form-login"

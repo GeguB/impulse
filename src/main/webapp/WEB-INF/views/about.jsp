@@ -5,10 +5,7 @@
 	<title>About</title>
 </head>
 <body>
-<h1>
-	Hi there!  
-</h1>
-
-<P>  This web site was created by ${author}.</P>
+<div class="text-center">Krótki opis strony</div>
+	<%@ include file="/WEB-INF/views/footer.jsp"%>
 </body>
 </html>
