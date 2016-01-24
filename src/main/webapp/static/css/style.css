@@ -398,6 +398,7 @@ ul.sidebar-menu li a.active i {
 /* MAIN CONTENT CONFIGURATION */
 #main-content {
     margin-left: 210px;
+    margin-right: 210px;
 }
 
 .header, .footer {
@@ -836,6 +837,17 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 	margin-bottom: 40px;
 }
 
+.box2 {
+	padding: 15px;
+	text-align: center;
+	color: #989898;
+}
+
+.box2 span {
+	font-size: 80px;
+
+}
+
 .box1 {
 	padding: 15px;
 	text-align: center;
@@ -1093,6 +1105,7 @@ PANELS CONFIGURATIONS
 	padding: 3px;
 	margin-bottom: 15px;
 	color: #c6c6c6;
+	font-size: 15px;
 }
 .white-panel .small {
 	font-size: 10px;

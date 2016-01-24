@@ -5,24 +5,28 @@
 <title>Landing page</title>
 <body>
 	<%@ include file="/WEB-INF/views/header.jsp"%>
-	<div class="centered">
+	<%@ include file="/WEB-INF/views/sidebar.jsp"%>
+	<div class="centered" id="main-content">
 		<h2>Welcome to teh landing page</h2>
 		<a href="profile">
 			<div class="col-md-4">
-				<div class="white-panel pn">
+				<div class="white-panel">
 					<div class="white-header">My profile</div>
+					<div class="box2"><span class="fa fa-user"></span></div>
 				</div>
 			</div>
 		</a> <a href="billing">
 			<div class="col-md-4">
-				<div class="white-panel pn">
+				<div class="white-panel">
 					<div class="white-header">Connection History</div>
+					<div class="box2"><span class="fa fa-phone"></span></div>
 				</div>
 			</div>
 		</a> <a href="account">
 			<div class="col-md-4">
-				<div class="white-panel pn">
+				<div class="white-panel">
 					<div class="white-header">Account History</div>
+					<div class="box2"><span class="fa fa-credit-card"></span></div>
 				</div>
 			</div>
 		</a>
@@ -30,14 +34,16 @@
 		<div class="col-md-2"></div>
 		<a href="plans">
 			<div class="col-md-4">
-				<div class="white-panel pn">
+				<div class="white-panel">
 					<div class="white-header">Price plans</div>
+					<div class="box2"><span class="fa fa-usd"></span></div>
 				</div>
 			</div>
 		</a> <a href="contact">
 			<div class="col-md-4">
-				<div class="white-panel pn">
+				<div class="white-panel">
 					<div class="white-header">Contact us</div>
+					<div class="box2"><span class="fa fa-pencil-square-o"></span></div>
 				</div>
 			</div>
 		</a>
