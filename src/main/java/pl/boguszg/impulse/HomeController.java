@@ -1,8 +1,5 @@
 package pl.boguszg.impulse;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+
 /**
  * Handles requests for the application home page.
  */
@@ -26,40 +24,7 @@ public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-	@RequestMapping(value = { "/", "/index", "/welcome**" }, method = RequestMethod.GET)
-	public ModelAndView welcomePage() {
 
-		ModelAndView model = new ModelAndView();
-		model.addObject("title", "Spring Security Custom Login Form");
-		model.addObject("message", "This is welcome page!");
-
-		DateFormat time = new SimpleDateFormat("HH:mm:ss");
-		DateFormat date = new SimpleDateFormat("dd/MM/yyyy");
-		Date now = new Date();
-
-		model.addObject("serverTime", time.format(now));
-		model.addObject("serverDate", date.format(now));
-		model.setViewName("hello");
-
-		logger.info("Home page!");
-
-		return model;
-
-	}
-
-	@RequestMapping(value = "/about", method = RequestMethod.GET)
-	public ModelAndView about() {
-
-		ModelAndView model = new ModelAndView();
-
-		String name = "Grzegorz Bogusz";
-		model.addObject("author", name);
-		model.setViewName("about");
-
-		logger.info("Good job on access!");
-
-		return model;
-	}
 
 	@RequestMapping(value = "/admin**", method = RequestMethod.GET)
 	public ModelAndView adminPage() {

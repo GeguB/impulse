@@ -1,5 +1,9 @@
 package pl.boguszg.impulse;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
@@ -25,14 +29,30 @@ public class UserController {
 	public void setUserService(UserService us) {
 		this.userService = us;
 	}
+	@RequestMapping(value = { "/", "/index", "/welcome**" }, method = RequestMethod.GET)
+	public String welcomePage(Model model) {
 
-	@RequestMapping(value = "/users", method = RequestMethod.GET)
-	public String listUsers(Model model) {
-		model.addAttribute("user", new User());
-		model.addAttribute("listUsers", this.userService.listUsers());
-		return "user";
+		model.addAttribute("title", "Spring Security Custom Login Form");
+		model.addAttribute("message", "This is welcome page!");
+
+		DateFormat time = new SimpleDateFormat("HH:mm:ss");
+		DateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+		Date now = new Date();
+
+		model.addAttribute("serverTime", time.format(now));
+		model.addAttribute("serverDate", date.format(now));
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User u = new User();
+		if (name != "anonymousUser") {
+			u = this.userService.getUserByName(name);
+		}
+		model.addAttribute("user", u);
+
+		return "index";
+
 	}
-
 	@RequestMapping(value = "/landing", method = RequestMethod.GET)
 	public String landingPage(Model model) {
 
@@ -47,6 +67,29 @@ public class UserController {
 		return "landing";
 
 	}
+	@RequestMapping(value = "/about", method = RequestMethod.GET)
+	public String aboutPage(Model model) {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User u = new User();
+		if (name != "anonymousUser") {
+			u = this.userService.getUserByName(name);
+		}
+		model.addAttribute("user", u);
+
+		return "about";
+
+	}
+	
+	@RequestMapping(value = "/users", method = RequestMethod.GET)
+	public String listUsers(Model model) {
+		model.addAttribute("user", new User());
+		model.addAttribute("listUsers", this.userService.listUsers());
+		return "user";
+	}
+
+
 
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public String showProfile(Model model) {
