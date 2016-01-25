@@ -81,10 +81,30 @@ public class UserController {
 		return "about";
 
 	}
+	@RequestMapping(value = "/contact", method = RequestMethod.GET)
+	public String contactPage(Model model) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User u = new User();
+		if (name != "anonymousUser") {
+			u = this.userService.getUserByName(name);
+		}
+		model.addAttribute("user", u);
+		
+		return "contact";
+		
+	}
 	
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public String listUsers(Model model) {
-		model.addAttribute("user", new User());
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User u = new User();
+		if (name != "anonymousUser") {
+			u = this.userService.getUserByName(name);
+		}
+		model.addAttribute("user", u);
 		model.addAttribute("listUsers", this.userService.listUsers());
 		return "user";
 	}
