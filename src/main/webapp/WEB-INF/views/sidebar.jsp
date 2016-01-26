@@ -15,10 +15,10 @@
 			<li><a href="recharge"><i class="fa fa-battery-three-quarters"></i>Recharge</a></li>
 			<li><a href="billing"><i class="fa fa-phone"></i>Connection
 					History</a></li>
-			<li><a href="account"><i class="fa fa-credit-card"></i>Account
+			<li><a href="purchased"><i class="fa fa-credit-card"></i>Account
 					History</a></li>
 			<li><a href="plans"><i class="fa fa-usd"></i>Price Plans</a></li>
-			<li><a href="contact"><i class="fa fa-phone"></i>Contact us</a></li>
+			<li><a href="contact"><i class="fa fa-pencil-square-o"></i>Contact us</a></li>
 			<li><a href="about"><i class="fa fa-info"></i>About</a></li>
 		</ul>
 	</div>

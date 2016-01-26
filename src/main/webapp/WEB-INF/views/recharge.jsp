@@ -9,7 +9,7 @@
 </style>
 <html>
 
-<title>About</title>
+<title>Recharge</title>
 <body>
 	<%@ include file="/WEB-INF/views/header.jsp"%>
 	<%@ include file="/WEB-INF/views/sidebar.jsp"%>

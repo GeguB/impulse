@@ -3,12 +3,12 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
 #content:before {
-	content: "\f044";
+	content: "\f09d";
 }
 </style>
 <html>
 <head>
-<title>Contact us</title>
+<title>Purchase history</title>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/header.jsp"%>
@@ -21,6 +21,7 @@
 			<div class="inner"></div>
 		</div>
 	</div>
-	<%@ include file="/WEB-INF/views/footer.jsp"%>
+		<%@ include file="/WEB-INF/views/footer.jsp"%>
+	
 </body>
 </html>

@@ -22,7 +22,7 @@
 					<div class="box2"><span class="fa fa-phone"></span></div>
 				</div>
 			</div>
-		</a> <a href="account">
+		</a> <a href="purchased">
 			<div class="col-md-4">
 				<div class="white-panel">
 					<div class="white-header">Account History</div>

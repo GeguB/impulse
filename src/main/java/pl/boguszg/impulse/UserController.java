@@ -94,6 +94,48 @@ public class UserController {
 		return "contact";
 		
 	}
+	@RequestMapping(value = "/billing", method = RequestMethod.GET)
+	public String billingPage(Model model) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User u = new User();
+		if (name != "anonymousUser") {
+			u = this.userService.getUserByName(name);
+		}
+		model.addAttribute("user", u);
+		
+		return "billing";
+		
+	}
+	@RequestMapping(value = "/purchased", method = RequestMethod.GET)
+	public String purchasedPage(Model model) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User u = new User();
+		if (name != "anonymousUser") {
+			u = this.userService.getUserByName(name);
+		}
+		model.addAttribute("user", u);
+		
+		return "purchased";
+		
+	}
+	@RequestMapping(value = "/plans", method = RequestMethod.GET)
+	public String plansPage(Model model) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User u = new User();
+		if (name != "anonymousUser") {
+			u = this.userService.getUserByName(name);
+		}
+		model.addAttribute("user", u);
+		
+		return "plans";
+		
+	}
 	@RequestMapping(value = "/recharge", method = RequestMethod.GET)
 	public String rechargeAccount(Model model) {
 		
@@ -104,6 +146,8 @@ public class UserController {
 			u = this.userService.getUserByName(name);
 		}
 		model.addAttribute("user", u);
+		
+		u.setAccount(12.55);
 		
 		return "recharge";
 		

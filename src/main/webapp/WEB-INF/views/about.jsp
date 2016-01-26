@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <style>
 #content:before {
-	content: "\f044";
+	content: "\f129";
 }
 </style>
 <html>
