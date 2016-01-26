@@ -51,6 +51,7 @@
 							<input type="hidden" name="${_csrf.parameterName}"
 								value="${_csrf.token}" />
 						</div>
+						<!-- Not used part for social network login 
 						<div class="login-social-link centered">
 							<p>or you can sign in via your social network</p>
 							<button class="btn btn-facebook" type="submit">
@@ -60,7 +61,7 @@
 								<i class="fa fa-twitter"></i> Twitter
 							</button>
 						</div>
-
+						-->
 						<div class="registration">
 							Don't have an account yet?<br /> <a class="" href="register">
 								Create an account </a>
@@ -73,8 +74,8 @@
 			<%@ include file="/WEB-INF/views/header.jsp"%>
 			<%@ include file="/WEB-INF/views/sidebar.jsp"%>
 			<div class="centered" id="main-content">
-				<h1>YOU ARE ALREADY LOGGED IN
-					${pageContext.request.userPrincipal.name}, YOU DUMBFUCK!</h1>
+				<h1>You are already logged in as 
+					${pageContext.request.userPrincipal.name}</h1>
 				<c:url value="/j_spring_security_logout" var="logoutUrl" />
 
 				<script>
@@ -87,8 +88,7 @@
 						value="${_csrf.token}" />
 				</form>
 				<h1>
-					<a class="logout" href="javascript:formSubmit()"> LOG YO'SELF
-						THE FUCK AWAY!</a>
+					<a class="logout" href="javascript:formSubmit()">LOG OUT</a>
 				</h1>
 			</div>
 		</c:otherwise>

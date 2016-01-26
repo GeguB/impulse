@@ -1,6 +1,11 @@
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+#content:before {
+	content: "\f015";
+}
+</style>
 <html>
 <head>
 <title>Impulse - welcome page</title>
@@ -15,7 +20,6 @@
 		<div id="content">
 			<div class="inner">
 				<h1>Title : ${title}</h1>
-				<h1>Message : ${message}</h1>
 				<p>Current server time ${serverTime }</p>
 				<p>Current server date ${serverDate }</p>
 
@@ -41,15 +45,13 @@
 						<br />
 						<br />
 						<br />
-						<h1>
-							<a href="landing">GoTo Landing Page</a>
-						</h1>
+							<a href="landing">Go To Landing Page</a>
 					</c:if>
 				</sec:authorize>
 
 
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
-		Ye'r an admin m8!
+		You have an admin role.
 	</sec:authorize>
 
 			</div>

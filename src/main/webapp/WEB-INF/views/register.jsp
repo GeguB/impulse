@@ -20,76 +20,8 @@
 <link href="<c:url value='/static/css/style-responsive.css' />"
 	rel="stylesheet">
 
-
-<style>
-.error {
-	padding: 15px;
-	margin-bottom: 20px;
-	border: 1px solid transparent;
-	border-radius: 4px;
-	color: #a94442;
-	background-color: #f2dede;
-	border-color: #ebccd1;
-}
-
-.msg {
-	padding: 15px;
-	margin-bottom: 20px;
-	border: 1px solid transparent;
-	border-radius: 4px;
-	color: #31708f;
-	background-color: #d9edf7;
-	border-color: #bce8f1;
-}
-
-.title {
-	margin-top: 30px;
-	text-align: center;
-	font-size: 45px;
-}
-</style>
-
-
-
 <title>Register Page</title>
-<style type="text/css">
-.tg {
-	border-collapse: collapse;
-	border-spacing: 0;
-	border-color: #ccc;
-}
 
-.tg td {
-	font-family: Arial, sans-serif;
-	font-size: 14px;
-	padding: 10px 5px;
-	border-style: solid;
-	border-width: 1px;
-	overflow: hidden;
-	word-break: normal;
-	border-color: #ccc;
-	color: #333;
-	background-color: #fff;
-}
-
-.tg th {
-	font-family: Arial, sans-serif;
-	font-size: 14px;
-	font-weight: normal;
-	padding: 10px 5px;
-	border-style: solid;
-	border-width: 1px;
-	overflow: hidden;
-	word-break: normal;
-	border-color: #ccc;
-	color: #333;
-	background-color: #f0f0f0;
-}
-
-.tg .tg-4eph {
-	background-color: #f9f9f9
-}
-</style>
 </head>
 <body onload='document.loginForm.username.focus();'
 	onload='document.loginForm.username.focus();'>
@@ -126,7 +58,8 @@
 					<br />
 					<form:input path="password" type="password" class="form-control"
 						placeholder="Password" name='password' />
-					<form:input path="enabled" type="hidden" value="1"/>
+					<form:input path="enabled" type="hidden" value="1" />
+					<form:input path="roles_role" type="hidden" value="ROLE_USER" />
 					<br />
 
 					<c:if test="${empty user.username}">
@@ -140,5 +73,6 @@
 			</form:form>
 		</div>
 	</div>
+	<%@ include file="/WEB-INF/views/footer.jsp"%>
 </body>
 </html>

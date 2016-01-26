@@ -7,7 +7,7 @@
 	<%@ include file="/WEB-INF/views/header.jsp"%>
 	<%@ include file="/WEB-INF/views/sidebar.jsp"%>
 	<div class="centered" id="main-content">
-		<h2>Welcome to teh landing page</h2>
+		<h2>Welcome to the landing page</h2>
 		<a href="profile">
 			<div class="col-md-4">
 				<div class="white-panel">

@@ -12,6 +12,7 @@
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li><a href="users"><i class="fa fa-users"></i>Manage users</a></li>
 			</sec:authorize>
+			<li><a href="recharge"><i class="fa fa-battery-three-quarters"></i>Recharge</a></li>
 			<li><a href="billing"><i class="fa fa-phone"></i>Connection
 					History</a></li>
 			<li><a href="account"><i class="fa fa-credit-card"></i>Account

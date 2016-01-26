@@ -24,14 +24,12 @@ public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-
-
+	
 	@RequestMapping(value = "/admin**", method = RequestMethod.GET)
 	public ModelAndView adminPage() {
 
 		ModelAndView model = new ModelAndView();
-		model.addObject("title", "Spring Security Custom Login Form");
-		model.addObject("message", "This is protected page!");
+		model.addObject("title", "This page is only for admin use!");
 		model.setViewName("admin");
 
 		logger.info("Accessed admin!");

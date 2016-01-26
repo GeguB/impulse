@@ -32,8 +32,7 @@ public class UserController {
 	@RequestMapping(value = { "/", "/index", "/welcome**" }, method = RequestMethod.GET)
 	public String welcomePage(Model model) {
 
-		model.addAttribute("title", "Spring Security Custom Login Form");
-		model.addAttribute("message", "This is welcome page!");
+		model.addAttribute("title", "Welcome to the main page!");
 
 		DateFormat time = new SimpleDateFormat("HH:mm:ss");
 		DateFormat date = new SimpleDateFormat("dd/MM/yyyy");
@@ -95,6 +94,20 @@ public class UserController {
 		return "contact";
 		
 	}
+	@RequestMapping(value = "/recharge", method = RequestMethod.GET)
+	public String rechargeAccount(Model model) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User u = new User();
+		if (name != "anonymousUser") {
+			u = this.userService.getUserByName(name);
+		}
+		model.addAttribute("user", u);
+		
+		return "recharge";
+		
+	}
 	
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public String listUsers(Model model) {
@@ -120,7 +133,10 @@ public class UserController {
 			u = this.userService.getUserByName(name);
 		}
 		model.addAttribute("user", u);
-		model.addAttribute("time", "too late");
+		DateFormat time = new SimpleDateFormat("HH:mm:ss");
+		Date now = new Date();
+
+		model.addAttribute("serverTime", time.format(now));
 		return "profile";
 	}
 
