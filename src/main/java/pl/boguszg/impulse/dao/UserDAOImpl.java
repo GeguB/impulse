@@ -40,8 +40,8 @@ public class UserDAOImpl implements UserDAO {
 	public List<User> listUsers() {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<User> usersList = session.createQuery("from User").list();
-		for(User p : usersList){
-			logger.info("User List::"+p);
+		for(User u : usersList){
+			logger.info("User List::"+u);
 		}
 		return usersList;
 	}
