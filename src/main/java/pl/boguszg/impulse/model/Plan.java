@@ -15,7 +15,7 @@ public class Plan {
 	@Id
 	private int id;
 	private String name;
-	private String create;
+	private String created;
 	private float price;
 
 	public Plan() {
@@ -38,14 +38,14 @@ public class Plan {
 		this.name = name;
 	}
 
-	public String getCreate() {
-		return create;
+	public String getCreated() {
+		return created;
 	}
 
-	public void setCreate() {
+	public void setCreated() {
 		DateFormat df = new SimpleDateFormat("HH:mm dd/MM/yyyy");
 		String sdt = df.format(new Date());
-		this.create = sdt;
+		this.created = sdt;
 	}
 
 	public float getPrice() {
@@ -58,7 +58,7 @@ public class Plan {
 
 	@Override
 	public String toString() {
-		return "Plan [id=" + id + ", name=" + name + ", create=" + create + ", price=" + price + "]";
+		return "Plan [id=" + id + ", name=" + name + ", created=" + created + ", price=" + price + "]";
 	}
 	
 }

@@ -18,17 +18,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import pl.boguszg.impulse.model.User;
+import pl.boguszg.impulse.service.PlanService;
 import pl.boguszg.impulse.service.UserService;
 
 @Controller
 public class UserController {
 
 	private UserService userService;
+	private PlanService planService; 
+
 
 	@Autowired(required = true)
 	@Qualifier(value = "userService")
 	public void setUserService(UserService us) {
 		this.userService = us;
+	}
+	
+	@Autowired
+	@Qualifier(value = "planService")
+	public void setPlanService(PlanService ps){
+		this.planService = ps;
 	}
 
 	@RequestMapping(value = { "/", "/index", "/welcome**" }, method = RequestMethod.GET)
@@ -140,7 +149,7 @@ public class UserController {
 			u = this.userService.getUserByName(name);
 		}
 		model.addAttribute("user", u);
-
+		model.addAttribute("listPlans", this.planService.listPlans());		
 		return "plans";
 
 	}
@@ -155,11 +164,7 @@ public class UserController {
 			u = this.userService.getUserByName(name);
 		}
 		model.addAttribute("user", u);
-
-//		double account = u.getAccount();
-//		u.setAccount(account + 5.0);
-//		userService.updateUser(u);
-
+		
 		return "recharge";
 
 	}

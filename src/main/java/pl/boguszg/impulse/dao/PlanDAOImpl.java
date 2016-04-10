@@ -13,7 +13,7 @@ import pl.boguszg.impulse.model.Plan;
 @Repository
 public class PlanDAOImpl implements PlanDAO {
 
-	private static final Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(PlanDAOImpl.class);
 
 	private SessionFactory sessionFactory;
 	
@@ -38,8 +38,8 @@ public class PlanDAOImpl implements PlanDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Plan> listPlans() {
-		Session session = this.sessionFactory.getCurrentSession();
-		List<Plan> plansList = session.createQuery("from Plans").list();
+		Session session = this.sessionFactory.openSession();
+		List<Plan> plansList = session.createQuery("from Plan").list();
 		for(Plan p : plansList){
 			logger.info("Plan List::"+p);
 		}
@@ -50,7 +50,7 @@ public class PlanDAOImpl implements PlanDAO {
 	public Plan getPlanByName(String name) {
 		Session session = this.sessionFactory.getCurrentSession();		
 		Plan p = (Plan) session.load(Plan.class, new String(name));
-		logger.info("User loaded successfully, Plan details="+p);
+		logger.info("Plan loaded successfully, Plan details="+p);
 		return p;
 	}
 
