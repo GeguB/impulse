@@ -19,12 +19,12 @@
 		<div id="content">
 			<div class="inner">
 				Recharge your account.<br /> Your current balance: <span
-					class="bold">${user.account}</span><br /> <br />Recharge you
+					class="bold">${user.account}</span><br /> <br />Recharge your
 				account with:
-				<c:url var="addAction" value="/user/add"></c:url>
-				<form:form action="${addAction}" commandName="user">
-					<form:input path="account" />
-					<input type="submit" value="<spring:message text="Edit User"/>" />
+				<c:url var="recharge" value="/rechargeWith"></c:url>
+				<form:form method="POST" action="${recharge}" commandName="user">
+					<input name="price" type="number" step="0.1"/>
+					<input type="submit" value="<spring:message text="Recharge!"/>" />
 				</form:form>
 			</div>
 		</div>

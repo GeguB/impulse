@@ -22,17 +22,17 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void addUser(User p) {
+	public void addUser(User u) {
 		Session session = this.sessionFactory.getCurrentSession();
-		session.persist(p);
-		logger.info("User saved successfully, User Details="+p);
+		session.persist(u);
+		logger.info("User saved successfully, User Details="+u);
 	}
 
 	@Override
-	public void updateUser(User p) {
+	public void updateUser(User u) {
 		Session session = this.sessionFactory.getCurrentSession();
-		session.update(p);
-		logger.info("User updated successfully, User Details="+p);
+		session.update(u);
+		logger.info("User updated successfully, User Details="+u);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -49,27 +49,27 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User getUserById(int id) {
 		Session session = this.sessionFactory.getCurrentSession();		
-		User p = (User) session.load(User.class, new Integer(id));
-		logger.info("User loaded successfully, User details="+p);
-		return p;
+		User u = (User) session.load(User.class, new Integer(id));
+		logger.info("User loaded successfully, User details="+u);
+		return u;
 	}
 
 	@Override
 	public void removeUser(String name) {
 		Session session = this.sessionFactory.getCurrentSession();
-		User p = (User) session.load(User.class, new String(name));
-		if(null != p){
-			session.delete(p);
+		User u = (User) session.load(User.class, new String(name));
+		if(null != u){
+			session.delete(u);
 		}
-		logger.info("User deleted successfully, User details="+p);
+		logger.info("User deleted successfully, User details="+u);
 	}
 
 	@Override
 	public User getUserByName(String name) {
 		Session session = this.sessionFactory.getCurrentSession();		
-		User p = (User) session.load(User.class, new String(name));
-		logger.info("User loaded successfully, User details="+p);
-		return p;
+		User u = (User) session.load(User.class, new String(name));
+		logger.info("User loaded successfully, User details="+u);
+		return u;
 	}
 
 }

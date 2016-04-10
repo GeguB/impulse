@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import pl.boguszg.impulse.model.User;
@@ -29,6 +30,7 @@ public class UserController {
 	public void setUserService(UserService us) {
 		this.userService = us;
 	}
+
 	@RequestMapping(value = { "/", "/index", "/welcome**" }, method = RequestMethod.GET)
 	public String welcomePage(Model model) {
 
@@ -40,7 +42,7 @@ public class UserController {
 
 		model.addAttribute("serverTime", time.format(now));
 		model.addAttribute("serverDate", date.format(now));
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
 		User u = new User();
@@ -52,6 +54,7 @@ public class UserController {
 		return "index";
 
 	}
+
 	@RequestMapping(value = "/landing", method = RequestMethod.GET)
 	public String landingPage(Model model) {
 
@@ -66,6 +69,7 @@ public class UserController {
 		return "landing";
 
 	}
+
 	@RequestMapping(value = "/about", method = RequestMethod.GET)
 	public String aboutPage(Model model) {
 
@@ -80,9 +84,10 @@ public class UserController {
 		return "about";
 
 	}
+
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
 	public String contactPage(Model model) {
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
 		User u = new User();
@@ -90,13 +95,14 @@ public class UserController {
 			u = this.userService.getUserByName(name);
 		}
 		model.addAttribute("user", u);
-		
+
 		return "contact";
-		
+
 	}
+
 	@RequestMapping(value = "/billing", method = RequestMethod.GET)
 	public String billingPage(Model model) {
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
 		User u = new User();
@@ -104,13 +110,14 @@ public class UserController {
 			u = this.userService.getUserByName(name);
 		}
 		model.addAttribute("user", u);
-		
+
 		return "billing";
-		
+
 	}
+
 	@RequestMapping(value = "/purchased", method = RequestMethod.GET)
 	public String purchasedPage(Model model) {
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
 		User u = new User();
@@ -118,13 +125,14 @@ public class UserController {
 			u = this.userService.getUserByName(name);
 		}
 		model.addAttribute("user", u);
-		
+
 		return "purchased";
-		
+
 	}
+
 	@RequestMapping(value = "/plans", method = RequestMethod.GET)
 	public String plansPage(Model model) {
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
 		User u = new User();
@@ -132,13 +140,14 @@ public class UserController {
 			u = this.userService.getUserByName(name);
 		}
 		model.addAttribute("user", u);
-		
+
 		return "plans";
-		
+
 	}
+
 	@RequestMapping(value = "/recharge", method = RequestMethod.GET)
 	public String rechargeAccount(Model model) {
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
 		User u = new User();
@@ -146,13 +155,35 @@ public class UserController {
 			u = this.userService.getUserByName(name);
 		}
 		model.addAttribute("user", u);
-		
-		u.setAccount(12.55);
-		
+
+//		double account = u.getAccount();
+//		u.setAccount(account + 5.0);
+//		userService.updateUser(u);
+
 		return "recharge";
-		
+
 	}
-	
+
+	@RequestMapping(value = "/rechargeWith", method = RequestMethod.POST)
+	public String rechargeWith(@RequestParam("price") float price, Model model) {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User u = new User();
+		model.addAttribute("user", u);
+		u = this.userService.getUserByName(name);
+		try {
+			double account = u.getAccount();
+			u.setAccount(account + price);
+			userService.updateUser(u);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "redirect:/recharge";
+
+	}
+
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public String listUsers(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -165,8 +196,6 @@ public class UserController {
 		model.addAttribute("listUsers", this.userService.listUsers());
 		return "user";
 	}
-
-
 
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public String showProfile(Model model) {
@@ -186,14 +215,14 @@ public class UserController {
 
 	// For add and update user both
 	@RequestMapping(value = "/user/add", method = RequestMethod.POST)
-	public String addUser(@ModelAttribute("user") User p) {
+	public String addUser(@ModelAttribute("user") User u) {
 
-		if (p.getId() == 0) {
+		if (u.getId() == 0) {
 			// new user, add it
-			this.userService.addUser(p);
+			this.userService.addUser(u);
 		} else {
 			// existing user, call update
-			this.userService.updateUser(p);
+			this.userService.updateUser(u);
 		}
 
 		return "redirect:/users";
@@ -202,11 +231,11 @@ public class UserController {
 
 	// For add and update user both
 	@RequestMapping(value = "/register/new", method = RequestMethod.POST)
-	public String registerUser(@ModelAttribute("user") User p) {
+	public String registerUser(@ModelAttribute("user") User u) {
 
-		if (p.getId() == 0) {
+		if (u.getId() == 0) {
 			// new user, add it
-			this.userService.addUser(p);
+			this.userService.addUser(u);
 		}
 
 		return "redirect:/login";
@@ -214,7 +243,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public ModelAndView register(@ModelAttribute("user") User p) {
+	public ModelAndView register(@ModelAttribute("user") User u) {
 
 		ModelAndView model = new ModelAndView();
 
