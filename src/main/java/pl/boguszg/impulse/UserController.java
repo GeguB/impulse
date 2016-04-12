@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import pl.boguszg.impulse.model.PhoneNumber;
 import pl.boguszg.impulse.model.User;
+import pl.boguszg.impulse.service.PhoneNumberService;
 import pl.boguszg.impulse.service.PlanService;
 import pl.boguszg.impulse.service.UserService;
 
@@ -25,19 +27,25 @@ import pl.boguszg.impulse.service.UserService;
 public class UserController {
 
 	private UserService userService;
-	private PlanService planService; 
-
+	private PlanService planService;
+	private PhoneNumberService phoneNumberService;
 
 	@Autowired(required = true)
 	@Qualifier(value = "userService")
 	public void setUserService(UserService us) {
 		this.userService = us;
 	}
-	
+
 	@Autowired
 	@Qualifier(value = "planService")
-	public void setPlanService(PlanService ps){
+	public void setPlanService(PlanService ps) {
 		this.planService = ps;
+	}
+
+	@Autowired
+	@Qualifier(value = "phoneNumberService")
+	public void setPhoneNumberService(PhoneNumberService pn) {
+		this.phoneNumberService = pn;
 	}
 
 	@RequestMapping(value = { "/", "/index", "/welcome**" }, method = RequestMethod.GET)
@@ -149,7 +157,7 @@ public class UserController {
 			u = this.userService.getUserByName(name);
 		}
 		model.addAttribute("user", u);
-		model.addAttribute("listPlans", this.planService.listPlans());		
+		model.addAttribute("listPlans", this.planService.listPlans());
 		return "plans";
 
 	}
@@ -164,7 +172,7 @@ public class UserController {
 			u = this.userService.getUserByName(name);
 		}
 		model.addAttribute("user", u);
-		
+
 		return "recharge";
 
 	}
@@ -213,6 +221,13 @@ public class UserController {
 		model.addAttribute("user", u);
 		DateFormat time = new SimpleDateFormat("HH:mm:ss");
 		Date now = new Date();
+		PhoneNumber pn = new PhoneNumber();
+		try {
+			pn = this.phoneNumberService.getPhoneNumberByName(name);
+			model.addAttribute("phone_number", pn);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		model.addAttribute("serverTime", time.format(now));
 		return "profile";

@@ -21,7 +21,8 @@
 				<br /> Your user id: ${user.id} <br /> Your username:
 				${user.username} <br /> Your registered email: ${user.email} <br />
 				Your account balance: ${user.account} <br />Role:
-				${user.roles_role} <br /> Current time is: ${serverTime }
+				${user.roles_role} <br /> Current time is: ${serverTime } <br />
+				Your phone number is: ${phone_number.number}
 			</div>
 		</div>
 	</div>
