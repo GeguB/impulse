@@ -3,6 +3,7 @@ package pl.boguszg.impulse;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import pl.boguszg.impulse.model.Call;
 import pl.boguszg.impulse.model.PhoneNumber;
 import pl.boguszg.impulse.model.User;
+import pl.boguszg.impulse.service.CallService;
 import pl.boguszg.impulse.service.PhoneNumberService;
 import pl.boguszg.impulse.service.PlanService;
 import pl.boguszg.impulse.service.UserService;
@@ -29,6 +32,7 @@ public class UserController {
 	private UserService userService;
 	private PlanService planService;
 	private PhoneNumberService phoneNumberService;
+	private CallService callService;
 
 	@Autowired(required = true)
 	@Qualifier(value = "userService")
@@ -46,6 +50,12 @@ public class UserController {
 	@Qualifier(value = "phoneNumberService")
 	public void setPhoneNumberService(PhoneNumberService pn) {
 		this.phoneNumberService = pn;
+	}
+	
+	@Autowired
+	@Qualifier(value = "callService")
+	public void setCallService(CallService c) {
+		this.callService = c;
 	}
 
 	@RequestMapping(value = { "/", "/index", "/welcome**" }, method = RequestMethod.GET)
@@ -117,7 +127,7 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "/billing", method = RequestMethod.GET)
+	@RequestMapping(value = "/billing?all", method = RequestMethod.GET)
 	public String billingPage(Model model) {
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -128,6 +138,25 @@ public class UserController {
 		}
 		model.addAttribute("user", u);
 
+		return "billing";
+
+	}
+
+	@RequestMapping(value = "/billing", method = RequestMethod.GET)
+	public String billingCallsPage(Model model) {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User u = new User();
+		int dialer;
+		if (name != "anonymousUser") {
+			u = this.userService.getUserByName(name);
+			dialer = this.phoneNumberService.getPhoneNumberByName(name).getNumber();
+			List<Call> calls = this.callService.getCallByDialer(dialer);
+			model.addAttribute("connList", calls);
+		}
+		model.addAttribute("user", u);
+		
 		return "billing";
 
 	}
@@ -185,12 +214,10 @@ public class UserController {
 		User u = new User();
 		model.addAttribute("user", u);
 		u = this.userService.getUserByName(name);
-		try {
+		if (name != "anonymousUser") {
 			double account = u.getAccount();
 			u.setAccount(account + price);
 			userService.updateUser(u);
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 
 		return "redirect:/recharge";

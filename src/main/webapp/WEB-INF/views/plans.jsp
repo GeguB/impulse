@@ -19,29 +19,31 @@
 	<div id="main-content">
 		<div id="content">
 			<div class="inner">
-			<c:choose>
-			<c:when test="${!empty listPlans}">
-					<table class="tg">
-						<tr>
-							<th width="80">Plan ID</th>
-							<th width="120">Plan Name</th>
-							<th width="120">Plan Price</th>
-						</tr>
-						<c:forEach items="${listPlans}" var="plan">
+				<c:choose>
+					<c:when test="${!empty listPlans}">
+						<table class="tg">
 							<tr>
-								<td>${plan.id}</td>
-								<td>${plan.name}</td>
-								<td>${plan.price}</td>
+								<th width="80">Plan ID</th>
+								<th width="120">Plan Name</th>
+								<th width="120">Plan Price</th>
 							</tr>
-						</c:forEach>
-					</table>
-				</c:when>
-			<c:otherwise><h1>This is bullshit</h1></c:otherwise>
-			</c:choose>
-				</div>
+							<c:forEach items="${listPlans}" var="plan">
+								<tr>
+									<td>${plan.id}</td>
+									<td>${plan.name}</td>
+									<td>${plan.price}</td>
+								</tr>
+							</c:forEach>
+						</table>
+					</c:when>
+					<c:otherwise>
+						<h1>Nothing to show here!</h1>
+					</c:otherwise>
+				</c:choose>
+			</div>
 		</div>
 	</div>
-		<%@ include file="/WEB-INF/views/footer.jsp"%>
-	
+	<%@ include file="/WEB-INF/views/footer.jsp"%>
+
 </body>
 </html>

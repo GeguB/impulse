@@ -1,10 +1,12 @@
 package pl.boguszg.impulse.model;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 //import javax.persistence.Column;
 //import javax.persistence.GeneratedValue;
 //import javax.persistence.GenerationType;
@@ -13,11 +15,15 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="calls")
-public class Call{
+public class Call implements Serializable{
 
+	@Id
 	private int phone_number;
+	@Id
 	private int calling_to;
+	@Id
 	private int duration;
+	@Id
 	private String end_time;
 	
 	public Call(){

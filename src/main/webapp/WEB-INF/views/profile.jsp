@@ -9,7 +9,7 @@
 </style>
 <html>
 
-<title>${user.username}'s profile</title>
+<title>${user.username}'sprofile</title>
 <body>
 	<%@ include file="/WEB-INF/views/header.jsp"%>
 	<%@ include file="/WEB-INF/views/sidebar.jsp"%>
@@ -21,8 +21,12 @@
 				<br /> Your user id: ${user.id} <br /> Your username:
 				${user.username} <br /> Your registered email: ${user.email} <br />
 				Your account balance: ${user.account} <br />Role:
-				${user.roles_role} <br /> Current time is: ${serverTime } <br />
-				Your phone number is: ${phone_number.number}
+				${user.roles_role} <br /> Current time is: ${serverTime} <br />
+				Your phone number is:
+				<c:choose>
+					<c:when test="${empty phone_number.number}">No phone number assigned to user</c:when>
+					<c:otherwise>${phone_number.number}</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 	</div>
