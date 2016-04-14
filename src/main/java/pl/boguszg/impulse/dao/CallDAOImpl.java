@@ -13,7 +13,7 @@ import pl.boguszg.impulse.model.Call;
 @Repository
 public class CallDAOImpl implements CallDAO {
 
-	private static final Logger logger = LoggerFactory.getLogger(PlanDAOImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(CallDAOImpl.class);
 
 	private SessionFactory sessionFactory;
 

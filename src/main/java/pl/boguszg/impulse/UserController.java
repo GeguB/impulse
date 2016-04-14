@@ -20,10 +20,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import pl.boguszg.impulse.model.Call;
 import pl.boguszg.impulse.model.PhoneNumber;
+import pl.boguszg.impulse.model.Text;
 import pl.boguszg.impulse.model.User;
 import pl.boguszg.impulse.service.CallService;
 import pl.boguszg.impulse.service.PhoneNumberService;
 import pl.boguszg.impulse.service.PlanService;
+import pl.boguszg.impulse.service.TextService;
 import pl.boguszg.impulse.service.UserService;
 
 @Controller
@@ -33,6 +35,7 @@ public class UserController {
 	private PlanService planService;
 	private PhoneNumberService phoneNumberService;
 	private CallService callService;
+	private TextService textService;
 
 	@Autowired(required = true)
 	@Qualifier(value = "userService")
@@ -56,6 +59,12 @@ public class UserController {
 	@Qualifier(value = "callService")
 	public void setCallService(CallService c) {
 		this.callService = c;
+	}
+	
+	@Autowired
+	@Qualifier(value = "textService")
+	public void setTextService(TextService t) {
+		this.textService = t;
 	}
 
 	@RequestMapping(value = { "/", "/index", "/welcome**" }, method = RequestMethod.GET)
@@ -142,7 +151,7 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "/billing", method = RequestMethod.GET)
+	@RequestMapping(value = "/billing?calls", method = RequestMethod.GET)
 	public String billingCallsPage(Model model) {
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -159,6 +168,25 @@ public class UserController {
 		
 		return "billing";
 
+	}
+
+	@RequestMapping(value = "/billing", method = RequestMethod.GET)
+	public String billingTextsPage(Model model) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User u = new User();
+		int dialer;
+		if (name != "anonymousUser") {
+			u = this.userService.getUserByName(name);
+			dialer = this.phoneNumberService.getPhoneNumberByName(name).getNumber();
+			List<Text> texts = this.textService.getTextByDialer(dialer);
+			model.addAttribute("connList", texts);
+		}
+		model.addAttribute("user", u);
+		
+		return "billing";
+		
 	}
 
 	@RequestMapping(value = "/purchased", method = RequestMethod.GET)
