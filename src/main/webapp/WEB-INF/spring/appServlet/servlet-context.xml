@@ -45,6 +45,7 @@
 				<beans:value>pl.boguszg.impulse.model.PhoneNumber</beans:value>		
 				<beans:value>pl.boguszg.impulse.model.Call</beans:value>		
 				<beans:value>pl.boguszg.impulse.model.Text</beans:value>		
+				<beans:value>pl.boguszg.impulse.model.DataTransfer</beans:value>		
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">
@@ -101,6 +102,15 @@
 
 	<beans:bean id="textService" class="pl.boguszg.impulse.service.TextServiceImpl">
 		<beans:property name="textDAO" ref="textDAO"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="dataTransferDAO" class="pl.boguszg.impulse.dao.DataTransferDAOImpl">
+		<beans:property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+
+	<beans:bean id="dataTransferService" class="pl.boguszg.impulse.service.DataTransferServiceImpl">
+		<beans:property name="dataTransferDAO" ref="dataTransferDAO"></beans:property>
 	</beans:bean>
 
 	<!-- Spring MVC Static Resources mapping -->

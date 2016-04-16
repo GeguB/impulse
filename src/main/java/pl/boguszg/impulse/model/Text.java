@@ -13,6 +13,7 @@ import javax.persistence.Table;
 @Table(name="texts")
 public class Text implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	@Id
 	private int phone_number;
 	@Id

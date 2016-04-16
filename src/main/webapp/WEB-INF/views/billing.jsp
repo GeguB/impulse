@@ -20,8 +20,8 @@
 	<div id="main-content">
 		<div id="content">
 			<div class="inner">
-				<c:choose>
-					<c:when test="${!empty connList}">
+<%-- 				<c:choose> --%>
+<%-- 					<c:when test="${!empty callList}"> --%>
 <!-- 						<table class="tg"> -->
 <!-- 							<tr> -->
 <!-- 								<th width="80">From</th> -->
@@ -29,7 +29,7 @@
 <!-- 								<th width="120">Duration</th> -->
 <!-- 								<th width="200">DateTime</th> -->
 <!-- 							</tr> -->
-<%-- 							<c:forEach items="${connList}" var="connection"> --%>
+<%-- 							<c:forEach items="${callList}" var="connection"> --%>
 <%-- 								<fmt:parseNumber var="hours" value="${(connection.duration / 3600) % 24}" type="number" integerOnly="true"/> --%>
 <%-- 								<fmt:parseNumber var="minutes" value="${(connection.duration / 60) % 60}" type="number" integerOnly="true"/> --%>
 <%-- 								<fmt:parseNumber var="seconds" value="${connection.duration % 60}" type="number" integerOnly="true"/> --%>
@@ -42,26 +42,44 @@
 <%-- 							</c:forEach> --%>
 <!-- 						</table> -->
 
-
+<%-- 					<c:when test="${!empty textList}"> --%>
+<!-- 						<table class="tg"> -->
+<!-- 							<tr> -->
+<!-- 								<th width="80">From</th> -->
+<!-- 								<th width="120">To</th> -->
+<!-- 								<th width="200">DateTime</th> -->
+<!-- 							</tr> -->
+<%-- 							<c:forEach items="${textList}" var="text"> --%>
+<!-- 								<tr> -->
+<%-- 									<td>${text.phone_number}</td> --%>
+<%-- 									<td>${text.sent_to}</td> --%>
+<%-- 									<td>${text.sent_time}</td> --%>
+<!-- 								</tr> -->
+<%-- 							</c:forEach> --%>
+<!-- 						</table> -->
+						
+<%-- 					<c:when test="${!empty dataTransferList}"> --%>
 						<table class="tg">
 							<tr>
 								<th width="80">From</th>
-								<th width="120">To</th>
+								<th width="120">Size</th>
 								<th width="200">DateTime</th>
 							</tr>
-							<c:forEach items="${connList}" var="text">
+							<c:forEach items="${dataTransferList}" var="dt">
 								<tr>
-									<td>${text.phone_number}</td>
-									<td>${text.sent_to}</td>
-									<td>${text.sent_time}</td>
+									<td>${dt.phone_number}</td>
+									<td>${dt.size} KB</td>
+									<td>${dt.use_time}</td>
 								</tr>
 							</c:forEach>
 						</table>
-					</c:when>
-					<c:otherwise>
-						<h1>Nothing to show here!</h1>
-					</c:otherwise>
-				</c:choose>
+						
+						
+<%-- 					</c:when> --%>
+<%-- 					<c:otherwise> --%>
+<!-- 						<h1>Nothing to show here!</h1> -->
+<%-- 					</c:otherwise> --%>
+<%-- 				</c:choose> --%>
 			</div>
 		</div>
 	</div>

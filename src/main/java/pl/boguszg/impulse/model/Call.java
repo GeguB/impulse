@@ -17,6 +17,7 @@ import javax.persistence.Table;
 @Table(name="calls")
 public class Call implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	@Id
 	private int phone_number;
 	@Id

@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import pl.boguszg.impulse.model.Call;
+import pl.boguszg.impulse.model.DataTransfer;
 import pl.boguszg.impulse.model.PhoneNumber;
 import pl.boguszg.impulse.model.Text;
 import pl.boguszg.impulse.model.User;
 import pl.boguszg.impulse.service.CallService;
+import pl.boguszg.impulse.service.DataTransferService;
 import pl.boguszg.impulse.service.PhoneNumberService;
 import pl.boguszg.impulse.service.PlanService;
 import pl.boguszg.impulse.service.TextService;
@@ -36,6 +38,7 @@ public class UserController {
 	private PhoneNumberService phoneNumberService;
 	private CallService callService;
 	private TextService textService;
+	private DataTransferService dataTransferService;
 
 	@Autowired(required = true)
 	@Qualifier(value = "userService")
@@ -54,17 +57,23 @@ public class UserController {
 	public void setPhoneNumberService(PhoneNumberService pn) {
 		this.phoneNumberService = pn;
 	}
-	
+
 	@Autowired
 	@Qualifier(value = "callService")
 	public void setCallService(CallService c) {
 		this.callService = c;
 	}
-	
+
 	@Autowired
 	@Qualifier(value = "textService")
 	public void setTextService(TextService t) {
 		this.textService = t;
+	}
+
+	@Autowired
+	@Qualifier(value = "dataTransferService")
+	public void setDataTransferService(DataTransferService dt) {
+		this.dataTransferService = dt;
 	}
 
 	@RequestMapping(value = { "/", "/index", "/welcome**" }, method = RequestMethod.GET)
@@ -162,17 +171,17 @@ public class UserController {
 			u = this.userService.getUserByName(name);
 			dialer = this.phoneNumberService.getPhoneNumberByName(name).getNumber();
 			List<Call> calls = this.callService.getCallByDialer(dialer);
-			model.addAttribute("connList", calls);
+			model.addAttribute("callList", calls);
 		}
 		model.addAttribute("user", u);
-		
+
 		return "billing";
 
 	}
 
-	@RequestMapping(value = "/billing", method = RequestMethod.GET)
+	@RequestMapping(value = "/billing?texts", method = RequestMethod.GET)
 	public String billingTextsPage(Model model) {
-		
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
 		User u = new User();
@@ -181,12 +190,31 @@ public class UserController {
 			u = this.userService.getUserByName(name);
 			dialer = this.phoneNumberService.getPhoneNumberByName(name).getNumber();
 			List<Text> texts = this.textService.getTextByDialer(dialer);
-			model.addAttribute("connList", texts);
+			model.addAttribute("textList", texts);
 		}
 		model.addAttribute("user", u);
-		
+
 		return "billing";
-		
+
+	}
+
+	@RequestMapping(value = "/billing", method = RequestMethod.GET)
+	public String billingDataTransferPage(Model model) {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User u = new User();
+		int dialer;
+		if (name != "anonymousUser") {
+			u = this.userService.getUserByName(name);
+			dialer = this.phoneNumberService.getPhoneNumberByName(name).getNumber();
+			List<DataTransfer> dataTransfer = this.dataTransferService.getDataTransferByDialer(dialer);
+			model.addAttribute("dataTransferList", dataTransfer);
+		}
+		model.addAttribute("user", u);
+
+		return "billing";
+
 	}
 
 	@RequestMapping(value = "/purchased", method = RequestMethod.GET)
