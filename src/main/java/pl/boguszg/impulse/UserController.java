@@ -146,7 +146,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/billing?all", method = RequestMethod.GET)
-	public String billingPage(Model model) {
+	public String billingPageAll(Model model) {
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
@@ -161,7 +161,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/billing?calls", method = RequestMethod.GET)
-	public String billingCallsPage(Model model) {
+	public String billingCallsPageOld(Model model) {
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
@@ -198,7 +198,7 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "/billing", method = RequestMethod.GET)
+	@RequestMapping(value = "/billing?DataTranser", method = RequestMethod.GET)
 	public String billingDataTransferPage(Model model) {
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -208,6 +208,28 @@ public class UserController {
 		if (name != "anonymousUser") {
 			u = this.userService.getUserByName(name);
 			dialer = this.phoneNumberService.getPhoneNumberByName(name).getNumber();
+			List<DataTransfer> dataTransfer = this.dataTransferService.getDataTransferByDialer(dialer);
+			model.addAttribute("dataTransferList", dataTransfer);
+		}
+		model.addAttribute("user", u);
+
+		return "billing";
+
+	}
+	@RequestMapping(value = "/billing", method = RequestMethod.GET)
+	public String billingPage(Model model) {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User u = new User();
+		int dialer;
+		if (name != "anonymousUser") {
+			u = this.userService.getUserByName(name);
+			dialer = this.phoneNumberService.getPhoneNumberByName(name).getNumber();
+			List<Call> calls = this.callService.getCallByDialer(dialer);
+			model.addAttribute("callList", calls);
+			List<Text> texts = this.textService.getTextByDialer(dialer);
+			model.addAttribute("textList", texts);
 			List<DataTransfer> dataTransfer = this.dataTransferService.getDataTransferByDialer(dialer);
 			model.addAttribute("dataTransferList", dataTransfer);
 		}

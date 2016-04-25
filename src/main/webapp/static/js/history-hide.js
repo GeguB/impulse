@@ -1,0 +1,17 @@
+$(document).ready(function(){
+    $(".calls").click(function(){
+    	$("#texts").hide();
+    	$("#dataTransfer").hide();
+    	$("#calls").show();
+    });
+    $(".texts").click(function(){
+    	$("#calls").hide();
+    	$("#dataTransfer").hide();
+    	$("#texts").show();
+    });
+    $(".dataTransfer").click(function(){
+        $("#calls").hide();
+    	$("#texts").hide();
+    	$("#dataTransfer").show();
+    });
+});
