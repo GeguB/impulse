@@ -23,7 +23,7 @@
 				account with:
 				<c:url var="recharge" value="/rechargeWith"></c:url>
 				<form:form method="POST" action="${recharge}" commandName="user">
-					<input name="price" type="number" step="0.1"/>
+					<input name="price" type="number" step="0.50" min="0" max="250" value="5.00"/>
 					<input type="submit" value="<spring:message text="Recharge!"/>" />
 				</form:form>
 			</div>

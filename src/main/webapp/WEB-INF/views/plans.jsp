@@ -23,15 +23,33 @@
 					<c:when test="${!empty listPlans}">
 						<table class="tg">
 							<tr>
+								<th width="120">Plan Type</th>
 								<th width="80">Plan ID</th>
-								<th width="120">Plan Name</th>
+								<th width="200">Plan Name</th>
+								<th width="120">Plan Value</th>
 								<th width="120">Plan Price</th>
+								<th width="100"></th>
 							</tr>
 							<c:forEach items="${listPlans}" var="plan">
+								<c:choose>
+									<c:when test="${plan.type == 'text'}">
+										<c:set var="unit" value="Texts" />
+									</c:when>
+									<c:when test="${plan.type == 'call'}">
+										<c:set var="unit" value="minutes" />
+									</c:when>
+									<c:when test="${plan.type == 'transfer'}">
+										<c:set var="unit" value="KB" />
+									</c:when>
+									<c:otherwise><c:set var="unit" value="" /></c:otherwise>
+								</c:choose>
 								<tr>
+									<td>${plan.type}</td>
 									<td>${plan.id}</td>
 									<td>${plan.name}</td>
+									<td>${plan.value} <c:out value="${unit}"/></td>
 									<td>${plan.price}</td>
+									<td><button class="btn btn-round btn-default">Buy!</button></td>
 								</tr>
 							</c:forEach>
 						</table>

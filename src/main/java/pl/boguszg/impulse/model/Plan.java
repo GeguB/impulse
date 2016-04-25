@@ -15,11 +15,29 @@ public class Plan {
 	@Id
 	private int id;
 	private String name;
-	private String created;
+	private String type;
 	private float price;
+	int value;
+	private String created;
 
 	public Plan() {
 
+	}
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public int getValue() {
+		return value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
 	}
 
 	public int getId() {
@@ -58,7 +76,8 @@ public class Plan {
 
 	@Override
 	public String toString() {
-		return "Plan [id=" + id + ", name=" + name + ", created=" + created + ", price=" + price + "]";
+		return "Plan [id=" + id + ", name=" + name + ", type=" + type + ", price=" + price + ", value=" + value
+				+ ", created=" + created + "]";
 	}
 	
 }
