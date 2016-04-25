@@ -24,6 +24,7 @@ public class PhoneNumberDAOImpl implements PhoneNumberDAO{
 		Session session = this.sessionFactory.openSession();		
 		PhoneNumber pn = (PhoneNumber) session.load(PhoneNumber.class, new String(name));
 		logger.info("PhoneNumber loaded successfully, PhoneNumber details="+pn);
+		session.close();
 		return pn;
 	}
 }

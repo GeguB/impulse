@@ -43,6 +43,7 @@ public class PlanDAOImpl implements PlanDAO {
 		for(Plan p : plansList){
 			logger.info("Plan List::"+p);
 		}
+		session.close();
 		return plansList;
 	}
 

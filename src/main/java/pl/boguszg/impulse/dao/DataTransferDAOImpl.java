@@ -30,6 +30,7 @@ public class DataTransferDAOImpl implements DataTransferDAO {
 		for (DataTransfer dt : dataTransferList) {
 			logger.info("DataTransfer List::" + dt);
 		}
+		session.close();
 		return dataTransferList;
 	}
 }

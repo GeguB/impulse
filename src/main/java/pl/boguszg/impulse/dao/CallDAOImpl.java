@@ -37,6 +37,7 @@ public class CallDAOImpl implements CallDAO {
 		for (Call c : callsList) {
 			logger.info("Call List::" + c);
 		}
+		session.close();
 		return callsList;
 	}
 

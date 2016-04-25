@@ -30,6 +30,7 @@ public class TextDAOImpl implements TextDAO{
 		for (Text t : textsList) {
 			logger.info("Text List::" + t);
 		}
+		session.close();
 		return textsList;
 	}
 
