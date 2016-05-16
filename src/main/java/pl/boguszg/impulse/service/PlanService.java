@@ -9,6 +9,7 @@ public interface PlanService {
 	public void addPlan(Plan p);
 	public void updatePlan(Plan p);
 	public List<Plan> listPlans();
-	public Plan getPlanByName(String name);
+	public Plan getPlanByName(String name);	
+	public Plan getPlanById(int id);
 	public void removePlan(String name);
 }

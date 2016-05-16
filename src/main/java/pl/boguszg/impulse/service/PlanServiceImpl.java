@@ -34,6 +34,11 @@ public class PlanServiceImpl implements PlanService {
 	}
 
 	@Override
+	public Plan getPlanById(int id) {
+		return this.planDAO.getPlanById(id);
+	}
+
+	@Override
 	public void removePlan(String name) {
 		this.planDAO.removePlan(name);
 	}

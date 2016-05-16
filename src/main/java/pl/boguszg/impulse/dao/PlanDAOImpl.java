@@ -56,6 +56,14 @@ public class PlanDAOImpl implements PlanDAO {
 	}
 
 	@Override
+	public Plan getPlanById(int id) {
+		Session session = this.sessionFactory.getCurrentSession();		
+		Plan p = (Plan) session.load(Plan.class, new Integer(id));
+		logger.info("Plan loaded successfully, Plan details="+p);
+		return p;
+	}
+
+	@Override
 	public void removePlan(String name) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Plan p = (Plan) session.load(Plan.class, new String(name));
