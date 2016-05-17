@@ -6,12 +6,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import pl.boguszg.impulse.model.Deal;
 
+@Repository
 public class DealDAOImpl implements DealDAO {
 
-	private static final Logger logger = LoggerFactory.getLogger(PlanDAOImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(DealDAOImpl.class);
 
 	private SessionFactory sessionFactory;
 	
@@ -24,7 +26,7 @@ public class DealDAOImpl implements DealDAO {
 	public void addDeal(int userId, int planId) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Deal d = new Deal();
-		d.setUser_Id(userId);
+		d.setUser_ID(userId);
 		d.setPlan_ID(planId);
 		session.persist(d);
 		logger.info("Deal saved successfully, Deal Details="+d);
@@ -58,8 +60,10 @@ public class DealDAOImpl implements DealDAO {
 
 	@Override
 	public Deal getDealById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = this.sessionFactory.getCurrentSession();		
+		Deal d = (Deal) session.load(Deal.class, new Integer(id));
+		logger.info("Plan loaded successfully, Deal details="+d);
+		return d;
 	}
 
 	

@@ -18,10 +18,32 @@
 	<br />
 	<div id="main-content">
 		<div id="content">
-			<div class="inner"></div>
+			<div class="inner">
+				<c:choose>
+					<c:when test="${!empty dealsList}">
+						<table class="tg">
+							<tr>
+								<th width="120">Deal ID</th>
+								<th width="80">User ID</th>
+								<th width="80">Plan ID</th>
+							</tr>
+							<c:forEach items="${dealsList}" var="deal">
+								<tr>
+									<td>${deal.id}</td>
+									<td>${deal.user_ID}</td>
+									<td>${deal.plan_ID}</td>
+								</tr>
+							</c:forEach>
+						</table>
+					</c:when>
+					<c:otherwise>
+						<h1>Nothing to show here!</h1>
+					</c:otherwise>
+				</c:choose>
+			</div>
 		</div>
 	</div>
-		<%@ include file="/WEB-INF/views/footer.jsp"%>
-	
+	<%@ include file="/WEB-INF/views/footer.jsp"%>
+
 </body>
 </html>

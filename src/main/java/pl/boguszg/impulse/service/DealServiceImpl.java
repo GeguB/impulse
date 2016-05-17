@@ -20,18 +20,17 @@ public class DealServiceImpl implements DealService {
 
 	@Override
 	public List<Deal> listDeals() {
-		return null;
+		return this.dealDAO.listDeals();
 	}
 	
 	@Override
 	public List<Deal> listUserDeals(int userId) {
-		return null;
+		return this.dealDAO.listUserDeals(userId);
 	}
 
 	@Override
 	public Deal getDealById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.dealDAO.getDealById(id);
 	}
 
 }

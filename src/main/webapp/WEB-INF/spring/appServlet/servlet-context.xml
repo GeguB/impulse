@@ -38,14 +38,15 @@
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource" />
 		<beans:property name="annotatedClasses">
-		
+
 			<beans:list>
 				<beans:value>pl.boguszg.impulse.model.Plan</beans:value>
-				<beans:value>pl.boguszg.impulse.model.User</beans:value>		
-				<beans:value>pl.boguszg.impulse.model.PhoneNumber</beans:value>		
-				<beans:value>pl.boguszg.impulse.model.Call</beans:value>		
-				<beans:value>pl.boguszg.impulse.model.Text</beans:value>		
-				<beans:value>pl.boguszg.impulse.model.DataTransfer</beans:value>		
+				<beans:value>pl.boguszg.impulse.model.User</beans:value>
+				<beans:value>pl.boguszg.impulse.model.PhoneNumber</beans:value>
+				<beans:value>pl.boguszg.impulse.model.Call</beans:value>
+				<beans:value>pl.boguszg.impulse.model.Text</beans:value>
+				<beans:value>pl.boguszg.impulse.model.DataTransfer</beans:value>
+				<beans:value>pl.boguszg.impulse.model.Deal</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">
@@ -82,10 +83,11 @@
 			ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
 
-	<beans:bean id="phoneNumberService" class="pl.boguszg.impulse.service.PhoneNumberServiceImpl">
+	<beans:bean id="phoneNumberService"
+		class="pl.boguszg.impulse.service.PhoneNumberServiceImpl">
 		<beans:property name="phoneNumberDAO" ref="phoneNumberDAO"></beans:property>
 	</beans:bean>
-	
+
 	<beans:bean id="callDAO" class="pl.boguszg.impulse.dao.CallDAOImpl">
 		<beans:property name="sessionFactory"
 			ref="hibernate4AnnotatedSessionFactory" />
@@ -109,8 +111,18 @@
 			ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
 
-	<beans:bean id="dataTransferService" class="pl.boguszg.impulse.service.DataTransferServiceImpl">
+	<beans:bean id="dataTransferService"
+		class="pl.boguszg.impulse.service.DataTransferServiceImpl">
 		<beans:property name="dataTransferDAO" ref="dataTransferDAO"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="dealDAO" class="pl.boguszg.impulse.dao.DealDAOImpl">
+		<beans:property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+
+	<beans:bean id="dealService" class="pl.boguszg.impulse.service.DealServiceImpl">
+		<beans:property name="dealDAO" ref="dealDAO"></beans:property>
 	</beans:bean>
 
 	<!-- Spring MVC Static Resources mapping -->

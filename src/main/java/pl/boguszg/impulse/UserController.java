@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import pl.boguszg.impulse.model.Call;
 import pl.boguszg.impulse.model.DataTransfer;
+import pl.boguszg.impulse.model.Deal;
 import pl.boguszg.impulse.model.PhoneNumber;
 import pl.boguszg.impulse.model.Text;
 import pl.boguszg.impulse.model.User;
@@ -29,6 +30,7 @@ import pl.boguszg.impulse.service.PhoneNumberService;
 import pl.boguszg.impulse.service.PlanService;
 import pl.boguszg.impulse.service.TextService;
 import pl.boguszg.impulse.service.UserService;
+import pl.boguszg.impulse.service.DealService;
 
 @Controller
 public class UserController {
@@ -39,6 +41,7 @@ public class UserController {
 	private CallService callService;
 	private TextService textService;
 	private DataTransferService dataTransferService;
+	private DealService dealService;
 
 	@Autowired(required = true)
 	@Qualifier(value = "userService")
@@ -74,6 +77,12 @@ public class UserController {
 	@Qualifier(value = "dataTransferService")
 	public void setDataTransferService(DataTransferService dt) {
 		this.dataTransferService = dt;
+	}
+	
+	@Autowired
+	@Qualifier(value = "dealService")
+	public void setDealService(DealService d) {
+		this.dealService = d;
 	}
 
 	@RequestMapping(value = { "/", "/index", "/welcome**" }, method = RequestMethod.GET)
@@ -145,77 +154,7 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "/billing?all", method = RequestMethod.GET)
-	public String billingPageAll(Model model) {
 
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String name = auth.getName();
-		User u = new User();
-		if (name != "anonymousUser") {
-			u = this.userService.getUserByName(name);
-		}
-		model.addAttribute("user", u);
-
-		return "billing";
-
-	}
-
-	@RequestMapping(value = "/billing?calls", method = RequestMethod.GET)
-	public String billingCallsPageOld(Model model) {
-
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String name = auth.getName();
-		User u = new User();
-		int dialer;
-		if (name != "anonymousUser") {
-			u = this.userService.getUserByName(name);
-			dialer = this.phoneNumberService.getPhoneNumberByName(name).getNumber();
-			List<Call> calls = this.callService.getCallByDialer(dialer);
-			model.addAttribute("callList", calls);
-		}
-		model.addAttribute("user", u);
-
-		return "billing";
-
-	}
-
-	@RequestMapping(value = "/billing?texts", method = RequestMethod.GET)
-	public String billingTextsPage(Model model) {
-
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String name = auth.getName();
-		User u = new User();
-		int dialer;
-		if (name != "anonymousUser") {
-			u = this.userService.getUserByName(name);
-			dialer = this.phoneNumberService.getPhoneNumberByName(name).getNumber();
-			List<Text> texts = this.textService.getTextByDialer(dialer);
-			model.addAttribute("textList", texts);
-		}
-		model.addAttribute("user", u);
-
-		return "billing";
-
-	}
-
-	@RequestMapping(value = "/billing?DataTranser", method = RequestMethod.GET)
-	public String billingDataTransferPage(Model model) {
-
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String name = auth.getName();
-		User u = new User();
-		int dialer;
-		if (name != "anonymousUser") {
-			u = this.userService.getUserByName(name);
-			dialer = this.phoneNumberService.getPhoneNumberByName(name).getNumber();
-			List<DataTransfer> dataTransfer = this.dataTransferService.getDataTransferByDialer(dialer);
-			model.addAttribute("dataTransferList", dataTransfer);
-		}
-		model.addAttribute("user", u);
-
-		return "billing";
-
-	}
 	@RequestMapping(value = "/billing", method = RequestMethod.GET)
 	public String billingPage(Model model) {
 
@@ -247,9 +186,12 @@ public class UserController {
 		User u = new User();
 		if (name != "anonymousUser") {
 			u = this.userService.getUserByName(name);
+			int userId = u.getId();
+			List<Deal> deals = this.dealService.listUserDeals(userId);
+			model.addAttribute("dealsList", deals);
 		}
 		model.addAttribute("user", u);
-
+		
 		return "purchased";
 
 	}
