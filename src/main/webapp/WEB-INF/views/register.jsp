@@ -59,6 +59,7 @@
 					<form:input path="password" type="password" class="form-control"
 						placeholder="Password" name='password' />
 					<form:input path="enabled" type="hidden" value="1" />
+					<form:input path="phone_number" type="hidden" value="8888888" />
 					<form:input path="roles_role" type="hidden" value="ROLE_USER" />
 					<br />
 
