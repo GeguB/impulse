@@ -48,7 +48,7 @@
 									</c:otherwise>
 								</c:choose>
 								<tr>
-								<form:form action="plans" method="post">
+								<form:form action="transaction" method="post">
 									<td>${plan.type}</td>
 									<td>${plan.id}<input type="hidden" name="planid" value="${plan.id}" /></td>
 									<td>${plan.name}</td>
@@ -56,7 +56,7 @@
 									<td>${plan.price}</td>
 									<td>		
 									
-									<input type="submit" name="plans" class="btn btn-round btn-default" value="Buy!" /></td>
+									<input type="submit" name="transaction" class="btn btn-round btn-default" value="Buy!" /></td>
 								</form:form>
 								</tr>
 							</c:forEach>

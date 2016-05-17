@@ -79,7 +79,7 @@ public class UserController {
 	public void setDataTransferService(DataTransferService dt) {
 		this.dataTransferService = dt;
 	}
-	
+
 	@Autowired
 	@Qualifier(value = "dealService")
 	public void setDealService(DealService d) {
@@ -155,7 +155,6 @@ public class UserController {
 
 	}
 
-
 	@RequestMapping(value = "/billing", method = RequestMethod.GET)
 	public String billingPage(Model model) {
 
@@ -192,7 +191,7 @@ public class UserController {
 			model.addAttribute("dealsList", deals);
 		}
 		model.addAttribute("user", u);
-		
+
 		return "purchased";
 
 	}
@@ -211,8 +210,8 @@ public class UserController {
 		return "plans";
 
 	}
-	
-	@RequestMapping(value = "/plans", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/transaction", method = RequestMethod.POST)
 	public String plansBuy(@RequestParam int planid, Model model) {
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -228,15 +227,25 @@ public class UserController {
 			System.out.println(p.getName());
 			System.out.println(p.getPrice());
 			u.setAccount(u.getAccount() - p.getPrice());
+			switch (p.getType()) {
+			case "text":
+				u.setTexts_left(u.getTexts_left() + p.getValue());
+				break;
+			case "call":
+				u.setMinutes_left(u.getMinutes_left() + p.getValue());
+				break;
+			case "transfer":
+				u.setKb_left(u.getKb_left() + p.getValue());
+				break;
+
+			}
 			userService.updateUser(u);
-//			d = this.dealService.addDeal(u.getId(), p.getId());
-			
-			
-			
+			// d = this.dealService.addDeal(u.getId(), p.getId());
+			model.addAttribute("plan", p);
 		}
-//		model.addAttribute("user", u);
-//		model.addAttribute("listPlans", this.planService.listPlans());
-		return "plans";
+		model.addAttribute("user", u);
+
+		return "transaction";
 
 	}
 
