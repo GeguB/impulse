@@ -19,6 +19,9 @@ public class User {
 	private String username;
 	private String email;
 	private double account;
+	private int minutes_left;
+	private int texts_left;
+	private int kb_left;
 	private int enabled;
 	private String password;
 	private String roles_role;
@@ -59,6 +62,36 @@ public class User {
 	public void setAccount(double account) {
 		this.account = account;
 	}
+
+	public int getMinutes_left() {
+		return minutes_left;
+	}
+
+
+	public void setMinutes_left(int minutes_left) {
+		this.minutes_left = minutes_left;
+	}
+
+
+	public int getTexts_left() {
+		return texts_left;
+	}
+
+
+	public void setTexts_left(int texts_left) {
+		this.texts_left = texts_left;
+	}
+
+
+	public int getKb_left() {
+		return kb_left;
+	}
+
+
+	public void setKb_left(int kb_left) {
+		this.kb_left = kb_left;
+	}
+
 
 	public int getEnabled() {
 		return enabled;

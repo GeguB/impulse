@@ -21,7 +21,7 @@
 			<div class="inner">
 				<c:choose>
 					<c:when test="${!empty listPlans}">
-						<table class="tg">
+						<table class="table table-hover">
 							<tr>
 								<th width="120">Plan Type</th>
 								<th width="80">Plan ID</th>
