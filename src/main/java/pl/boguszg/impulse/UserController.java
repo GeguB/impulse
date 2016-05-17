@@ -22,6 +22,7 @@ import pl.boguszg.impulse.model.Call;
 import pl.boguszg.impulse.model.DataTransfer;
 import pl.boguszg.impulse.model.Deal;
 import pl.boguszg.impulse.model.PhoneNumber;
+import pl.boguszg.impulse.model.Plan;
 import pl.boguszg.impulse.model.Text;
 import pl.boguszg.impulse.model.User;
 import pl.boguszg.impulse.service.CallService;
@@ -207,6 +208,34 @@ public class UserController {
 		}
 		model.addAttribute("user", u);
 		model.addAttribute("listPlans", this.planService.listPlans());
+		return "plans";
+
+	}
+	
+	@RequestMapping(value = "/plans", method = RequestMethod.POST)
+	public String plansBuy(@RequestParam int planid, Model model) {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User u = new User();
+		Plan p = new Plan();
+		Deal d = new Deal();
+		if (name != "anonymousUser") {
+			u = this.userService.getUserByName(name);
+			System.out.println(u.getId());
+			System.out.println(planid);
+			p = this.planService.getPlanById(planid);
+			System.out.println(p.getName());
+			System.out.println(p.getPrice());
+			u.setAccount(u.getAccount() - p.getPrice());
+			userService.updateUser(u);
+//			d = this.dealService.addDeal(u.getId(), p.getId());
+			
+			
+			
+		}
+//		model.addAttribute("user", u);
+//		model.addAttribute("listPlans", this.planService.listPlans());
 		return "plans";
 
 	}

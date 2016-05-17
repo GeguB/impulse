@@ -43,11 +43,10 @@
 				</ul>
 				<div class="nav notify-row" id="top_menu">
 					<ul class="nav">
-
 						<li class="pull-left col-md-4">Welcome,
 							${pageContext.request.userPrincipal.name}</li>
 						<li class="col-md-8">Your account balance:
-							<p class="centered">${user.account}</p>
+							<p class="centered">${user.account} PLN</p>
 						</li>
 
 					</ul>

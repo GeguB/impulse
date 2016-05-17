@@ -1,6 +1,8 @@
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <style>
 #content:before {
 	content: "\f155 ";
@@ -41,15 +43,21 @@
 									<c:when test="${plan.type == 'transfer'}">
 										<c:set var="unit" value="KB" />
 									</c:when>
-									<c:otherwise><c:set var="unit" value="" /></c:otherwise>
+									<c:otherwise>
+										<c:set var="unit" value="" />
+									</c:otherwise>
 								</c:choose>
 								<tr>
+								<form:form action="plans" method="post">
 									<td>${plan.type}</td>
-									<td>${plan.id}</td>
+									<td>${plan.id}<input type="hidden" name="planid" value="${plan.id}" /></td>
 									<td>${plan.name}</td>
-									<td>${plan.value} <c:out value="${unit}"/></td>
+									<td>${plan.value}<c:out value="${unit}" /></td>
 									<td>${plan.price}</td>
-									<td><button class="btn btn-round btn-default">Buy!</button></td>
+									<td>		
+									
+									<input type="submit" name="plans" class="btn btn-round btn-default" value="Buy!" /></td>
+								</form:form>
 								</tr>
 							</c:forEach>
 						</table>
