@@ -221,11 +221,7 @@ public class UserController {
 		Deal d = new Deal();
 		if (name != "anonymousUser") {
 			u = this.userService.getUserByName(name);
-			System.out.println(u.getId());
-			System.out.println(planid);
 			p = this.planService.getPlanById(planid);
-			System.out.println(p.getName());
-			System.out.println(p.getPrice());
 			u.setAccount(u.getAccount() - p.getPrice());
 			switch (p.getType()) {
 			case "text":
@@ -240,8 +236,12 @@ public class UserController {
 
 			}
 			userService.updateUser(u);
-			// d = this.dealService.addDeal(u.getId(), p.getId());
 			model.addAttribute("plan", p);
+			d.setPlan_ID(p.getId());
+			d.setUser_ID(u.getId());
+			dealService.addDeal(d);
+			System.out.println(d);
+			model.addAttribute("deal", d);
 		}
 		model.addAttribute("user", u);
 

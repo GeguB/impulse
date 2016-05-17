@@ -14,14 +14,15 @@ import javax.persistence.Table;
 @Table(name = "deals")
 public class Deal {
 
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private int user_ID;
 	private int plan_ID;
 	private String made_time;
 
 	public Deal() {
+		setMade_time();
 	}
 
 	public int getId() {
@@ -52,7 +53,7 @@ public class Deal {
 		return made_time;
 	}
 
-	public void setMade_time(String made_time) {
+	public void setMade_time() {
 		DateFormat df = new SimpleDateFormat("HH:mm dd/MM/yyyy");
 		String sdt = df.format(new Date());
 		this.made_time = sdt;

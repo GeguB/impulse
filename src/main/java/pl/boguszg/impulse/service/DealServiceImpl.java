@@ -14,8 +14,8 @@ public class DealServiceImpl implements DealService {
 	}
 	
 	@Override
-	public void addDeal(int userId, int planId) {
-		this.dealDAO.addDeal(userId, planId);
+	public void addDeal(Deal d) {
+		this.dealDAO.addDeal(d);
 	}
 
 	@Override
