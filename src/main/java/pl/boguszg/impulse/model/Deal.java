@@ -1,14 +1,16 @@
 package pl.boguszg.impulse.model;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "deals")
@@ -16,13 +18,17 @@ public class Deal {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "ID")
 	private int id;
 	private int user_ID;
 	private int plan_ID;
-	private String made_time;
+	@Basic(optional = false)
+	@Column(name = "made_time", insertable = false, updatable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date made_time;
 
 	public Deal() {
-		setMade_time();
+
 	}
 
 	public int getId() {
@@ -49,19 +55,18 @@ public class Deal {
 		this.plan_ID = plan_ID;
 	}
 
-	public String getMade_time() {
+
+	public Date getMade_time() {
 		return made_time;
 	}
 
-	public void setMade_time() {
-		DateFormat df = new SimpleDateFormat("HH:mm dd/MM/yyyy");
-		String sdt = df.format(new Date());
-		this.made_time = sdt;
+	public void setMade_time(Date made_time) {
+		this.made_time = made_time;
 	}
 
 	@Override
 	public String toString() {
-		return "Deal [id=" + id + ", user_ID=" + user_ID + ", plan_ID=" + plan_ID + ", made_time=" + made_time + "]";
+		return "Deal [id=" + id + ", user_ID=" + user_ID + ", plan_ID=" + plan_ID + "]";
 	}
 
 

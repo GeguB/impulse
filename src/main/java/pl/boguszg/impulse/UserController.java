@@ -212,13 +212,11 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/transaction", method = RequestMethod.POST)
-	public String plansBuy(@RequestParam int planid, Model model) {
+	public String plansBuy(@RequestParam int planid, Model model,@ModelAttribute("user") User u, @ModelAttribute("deal") Deal d) {
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
-		User u = new User();
 		Plan p = new Plan();
-		Deal d = new Deal();
 		if (name != "anonymousUser") {
 			u = this.userService.getUserByName(name);
 			p = this.planService.getPlanById(planid);
@@ -239,7 +237,7 @@ public class UserController {
 			model.addAttribute("plan", p);
 			d.setPlan_ID(p.getId());
 			d.setUser_ID(u.getId());
-			dealService.addDeal(d);
+			this.dealService.addDeal(d);
 			System.out.println(d);
 			model.addAttribute("deal", d);
 		}

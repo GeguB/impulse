@@ -21,17 +21,19 @@
 			<div class="inner">
 				<c:choose>
 					<c:when test="${!empty dealsList}">
-						<table class="tg">
+						<table class="table">
 							<tr>
 								<th width="120">Deal ID</th>
 								<th width="80">User ID</th>
 								<th width="80">Plan ID</th>
+								<th width="80">Date of purchase</th>
 							</tr>
 							<c:forEach items="${dealsList}" var="deal">
 								<tr>
 									<td>${deal.id}</td>
 									<td>${deal.user_ID}</td>
 									<td>${deal.plan_ID}</td>
+									<td>${deal.made_time}</td>
 								</tr>
 							</c:forEach>
 						</table>

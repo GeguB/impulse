@@ -24,10 +24,9 @@ public class DealDAOImpl implements DealDAO {
 	@Override
 	//I hope this will work
 	public void addDeal(Deal d) {
-		Session session = sessionFactory.openSession();
+		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(d);
 		logger.info("Deal saved successfully, Deal Details="+d);
-		session.close();
 		
 	}
 
