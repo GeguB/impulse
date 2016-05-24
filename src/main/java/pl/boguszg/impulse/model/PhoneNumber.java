@@ -9,8 +9,8 @@ import javax.persistence.Table;
 
 public class PhoneNumber {
 
-	private int number;
 	@Id
+	private int number;
 	private String username;
 	private String user_email;
 	private String assigned;

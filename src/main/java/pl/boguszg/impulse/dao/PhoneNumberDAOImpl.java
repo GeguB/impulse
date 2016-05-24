@@ -1,5 +1,7 @@
 package pl.boguszg.impulse.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -7,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import pl.boguszg.impulse.model.PhoneNumber;
+import pl.boguszg.impulse.model.User;
 
 @Repository
 public class PhoneNumberDAOImpl implements PhoneNumberDAO{
@@ -26,5 +29,21 @@ public class PhoneNumberDAOImpl implements PhoneNumberDAO{
 		logger.info("PhoneNumber loaded successfully, PhoneNumber details="+pn);
 		session.close();
 		return pn;
+	}
+
+	@Override
+	public PhoneNumber UnusedPhoneNumber(User user) {
+		Session session = this.sessionFactory.openSession();
+		//AND WHERE pn.user_email = NULL AND WHERE pn.assigned = NULL
+		@SuppressWarnings("unchecked")
+		List<PhoneNumber> freeNumbers = session.createQuery("FROM PhoneNumber WHERE username IS NULL").list();
+		PhoneNumber freeNumber = freeNumbers.get(0);
+		
+		freeNumber.setUsername(user.getUsername());
+		freeNumber.setUser_email(user.getEmail());
+		System.out.println(freeNumber);
+		session.saveOrUpdate(freeNumber);
+		session.close();
+		return freeNumber;
 	}
 }

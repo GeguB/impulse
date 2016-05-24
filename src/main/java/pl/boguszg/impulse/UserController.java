@@ -370,6 +370,8 @@ public class UserController {
 
 		if (u.getId() == 0) {
 			// new user, add it
+			int phone_number = this.phoneNumberService.UnusedPhoneNumber(u).getNumber(); 
+			u.setPhone_number(phone_number);
 			this.userService.addUser(u);
 		}
 
