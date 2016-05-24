@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import pl.boguszg.impulse.model.Summary;
 import pl.boguszg.impulse.model.Text;
 
 @Repository
@@ -32,6 +33,16 @@ public class TextDAOImpl implements TextDAO{
 		}
 		session.close();
 		return textsList;
+	}
+
+	@Override
+	public Summary getSummary(int dialer, String period, List<Text> connList) {
+		connList = getTextByDialer(dialer);
+		Summary summary = new Summary();
+		summary.setType("texts");
+		summary.setCount(connList.size());
+		summary.setValue(summary.getCount());
+		return summary;
 	}
 
 }

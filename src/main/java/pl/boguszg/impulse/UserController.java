@@ -25,6 +25,7 @@ import pl.boguszg.impulse.model.DataTransfer;
 import pl.boguszg.impulse.model.Deal;
 import pl.boguszg.impulse.model.PhoneNumber;
 import pl.boguszg.impulse.model.Plan;
+import pl.boguszg.impulse.model.Summary;
 import pl.boguszg.impulse.model.Text;
 import pl.boguszg.impulse.model.User;
 import pl.boguszg.impulse.service.CallService;
@@ -167,12 +168,23 @@ public class UserController {
 		if (name != "anonymousUser") {
 			u = this.userService.getUserByName(name);
 			dialer = this.phoneNumberService.getPhoneNumberByName(name).getNumber();
+			
 			List<Call> calls = this.callService.getCallByDialer(dialer);
+			Summary callSum = this.callService.getSummary(dialer, "all", calls);
 			model.addAttribute("callList", calls);
+			
 			List<Text> texts = this.textService.getTextByDialer(dialer);
+			Summary textSum = this.textService.getSummary(dialer, "all", texts);
 			model.addAttribute("textList", texts);
+			
 			List<DataTransfer> dataTransfer = this.dataTransferService.getDataTransferByDialer(dialer);
+			Summary dtSum = this.dataTransferService.getSummary(dialer, "all", dataTransfer);
 			model.addAttribute("dataTransferList", dataTransfer);
+			
+			model.addAttribute("callSum", callSum);
+			model.addAttribute("textSum", textSum);
+			model.addAttribute("dtSum", dtSum);
+			
 		}
 		model.addAttribute("user", u);
 

@@ -32,7 +32,35 @@
 				<div class="tab-content">
 					<div id="summary" class="tab-pane fade in active">
 						<h3>Summary</h3>
-						<p>A summary of all 3 services will be shown here</p>
+						<table class="table">
+							<tr>
+								<th>Service</th>
+								<th>Number of use</th>
+								<th>Total value</th>
+							<tr>
+							<tr>
+								<td>${callSum.type}</td>
+								<td>${callSum.count}</td>
+								<td><fmt:parseNumber var="hours"
+										value="${(callSum.value / 3600) % 24}" type="number"
+										integerOnly="true" /> <fmt:parseNumber var="minutes"
+										value="${(callSum.value / 60) % 60}" type="number"
+										integerOnly="true" /> <fmt:parseNumber var="seconds"
+										value="${callSum.value % 60}" type="number" integerOnly="true" />
+									<c:out value="${hours}" />h<c:out value="${minutes}" />m<c:out
+										value="${seconds}" />s</td>
+							</tr>
+							<tr>
+								<td>${textSum.type}</td>
+								<td>${textSum.count}</td>
+								<td>${textSum.value} texts</td>
+							</tr>
+							<tr>
+								<td>${dtSum.type}</td>
+								<td>${dtSum.count}</td>
+								<td>${dtSum.value} KB</td>
+							</tr>
+						</table>
 					</div>
 					<div id="calls" class="tab-pane fade">
 						<h3>Calls</h3>

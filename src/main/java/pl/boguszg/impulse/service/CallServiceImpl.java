@@ -4,6 +4,7 @@ import java.util.List;
 
 import pl.boguszg.impulse.dao.CallDAO;
 import pl.boguszg.impulse.model.Call;
+import pl.boguszg.impulse.model.Summary;
 
 public class CallServiceImpl implements CallService {
 
@@ -23,6 +24,12 @@ public class CallServiceImpl implements CallService {
 	@Override
 	public List<Call> getCallByDialer(int dialer) {
 		return this.callDAO.getCallByDialer(dialer);
+	}
+
+
+	@Override
+	public Summary getSummary(int dialer, String period, List<Call> connList) {
+		return this.callDAO.getSummary(dialer, period, connList);
 	}
 
 }

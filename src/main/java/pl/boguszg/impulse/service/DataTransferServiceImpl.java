@@ -4,6 +4,7 @@ import java.util.List;
 
 import pl.boguszg.impulse.dao.DataTransferDAO;
 import pl.boguszg.impulse.model.DataTransfer;
+import pl.boguszg.impulse.model.Summary;
 
 public class DataTransferServiceImpl implements DataTransferService{
 	
@@ -17,5 +18,10 @@ public class DataTransferServiceImpl implements DataTransferService{
 	public List<DataTransfer> getDataTransferByDialer(int dialer) {
 		return this.dataTransferDAO.getDataTransferByDialer(dialer);
 
+	}
+
+	@Override
+	public Summary getSummary(int dialer, String period, List<DataTransfer> connList) {
+		return this.dataTransferDAO.getSummary(dialer, period, connList);
 	}
 }

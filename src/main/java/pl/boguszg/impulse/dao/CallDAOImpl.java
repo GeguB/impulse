@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import pl.boguszg.impulse.model.Call;
+import pl.boguszg.impulse.model.Summary;
 
 @Repository
 public class CallDAOImpl implements CallDAO {
@@ -39,6 +40,20 @@ public class CallDAOImpl implements CallDAO {
 		}
 		session.close();
 		return callsList;
+	}
+
+	@Override
+	public Summary getSummary(int dialer, String period, List<Call> connList) {
+		connList = getCallByDialer(dialer);
+		Summary summary = new Summary();
+		summary.setType("call");
+		summary.setCount(connList.size());
+		int value = 0;
+		for (Call call : connList){
+			value = value + call.getDuration();
+		}
+		summary.setValue(value);
+		return summary;
 	}
 
 }

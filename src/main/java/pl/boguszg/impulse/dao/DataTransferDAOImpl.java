@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import pl.boguszg.impulse.model.DataTransfer;
+import pl.boguszg.impulse.model.Summary;
 
 @Repository
 public class DataTransferDAOImpl implements DataTransferDAO {
@@ -32,5 +33,19 @@ public class DataTransferDAOImpl implements DataTransferDAO {
 		}
 		session.close();
 		return dataTransferList;
+	}
+
+	@Override
+	public Summary getSummary(int dialer, String period, List<DataTransfer> connList) {
+		connList = getDataTransferByDialer(dialer);
+		Summary summary = new Summary();
+		summary.setType("data transfer");
+		summary.setCount(connList.size());
+		int value = 0;
+		for (DataTransfer dt : connList){
+			value = value + dt.getSize();
+		}
+		summary.setValue(value);
+		return summary;
 	}
 }
