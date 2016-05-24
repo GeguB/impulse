@@ -15,7 +15,7 @@
 	<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
 		<%@ include file="/WEB-INF/views/sidebar.jsp"%>
 	</sec:authorize>
-	<c:set var="count" value="0" scope="page" />
+	<c:set var="count" value="1" scope="page" />
 	<br />
 	<div id="main-content">
 		<div id="content">
@@ -32,7 +32,6 @@
 							<c:forEach items="${dealsList}" var="deal">
 								<tr>
 									<td><i><c:out value="${count}" /></i></td>
-									<%request.getAttribute("dealsList"); %>
 									<td>${deal.id}</td>
 									<td>${deal.plan_ID}</td>
 									<td>${deal.made_time}</td>

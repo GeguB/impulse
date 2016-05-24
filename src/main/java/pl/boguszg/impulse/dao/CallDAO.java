@@ -8,4 +8,5 @@ public interface CallDAO {
 
 	public void addCall(Call c);
 	public List<Call> getCallByDialer(int dialer);
+
 }
