@@ -20,23 +20,28 @@
 	<div id="main-content">
 		<div id="content">
 			<div class="inner">
+				Showing 10 latest transactions </br>
 				<c:choose>
 					<c:when test="${!empty dealsList}">
 						<table class="table">
 							<tr>
-								<th width="80">No.</th>
-								<th width="120">Deal ID</th>
-								<th width="80">Plan ID</th>
-								<th width="80">Date of purchase</th>
+								<th width="100">No.</th>
+								<th width="180">Transaction ID</th>
+								<th width="100">Plan ID</th>
+								<th width="150">Date of purchase</th>
 							</tr>
 							<c:forEach items="${dealsList}" var="deal">
-								<tr>
-									<td><i><c:out value="${count}" /></i></td>
-									<td>${deal.id}</td>
-									<td>${deal.plan_ID}</td>
-									<td>${deal.made_time}</td>
-								</tr>
-								<c:set var="count" value="${count + 1}" scope="page"/>
+								<c:choose>
+									<c:when test="${count <= 10}">
+										<tr>
+											<td><i><c:out value="${count}" /></i></td>
+											<td>${deal.id}</td>
+											<td>${deal.plan_ID}</td>
+											<td>${deal.made_time}</td>
+										</tr>
+										<c:set var="count" value="${count + 1}" scope="page" />
+									</c:when>
+								</c:choose>
 							</c:forEach>
 						</table>
 					</c:when>

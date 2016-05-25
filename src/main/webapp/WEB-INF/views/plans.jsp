@@ -52,7 +52,7 @@
 									<td>${plan.type}</td>
 									<td>${plan.id}<input type="hidden" name="planid" value="${plan.id}" /></td>
 									<td>${plan.name}</td>
-									<td>${plan.value}<c:out value="${unit}" /></td>
+									<td>${plan.value} <c:out value="${unit}" /></td>
 									<td>${plan.price}</td>
 									<td>		
 									

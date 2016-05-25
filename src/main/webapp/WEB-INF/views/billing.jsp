@@ -66,7 +66,7 @@
 						<h3>Calls</h3>
 						<c:choose>
 							<c:when test="${!empty callList}">
-								<table class="tg">
+								<table class="table">
 									<tr>
 										<th width="80">From</th>
 										<th width="120">To</th>
@@ -102,7 +102,7 @@
 						<h3>Texts</h3>
 						<c:choose>
 							<c:when test="${!empty textList}">
-								<table class="tg">
+								<table class="table">
 									<tr>
 										<th width="80">From</th>
 										<th width="120">To</th>
@@ -126,7 +126,7 @@
 						<h3>Data Transfer</h3>
 						<c:choose>
 							<c:when test="${!empty dataTransferList}">
-								<table class="tg">
+								<table class="table">
 									<tr>
 										<th width="80">From</th>
 										<th width="120">Size</th>

@@ -22,7 +22,6 @@ public class DealDAOImpl implements DealDAO {
 	}
 	
 	@Override
-	//I hope this will work
 	public void addDeal(Deal d) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(d);
@@ -47,7 +46,6 @@ public class DealDAOImpl implements DealDAO {
 		Session session = this.sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
 		List<Deal> dealsList = session.createQuery("from Deal d where d.user_ID = :user").setParameter("user", userId).list();
-
 		for (Deal d : dealsList) {
 			logger.info("List::" + d);
 		}

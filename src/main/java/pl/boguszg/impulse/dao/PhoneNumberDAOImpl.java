@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -34,15 +35,21 @@ public class PhoneNumberDAOImpl implements PhoneNumberDAO{
 	@Override
 	public PhoneNumber UnusedPhoneNumber(User user) {
 		Session session = this.sessionFactory.openSession();
-		//AND WHERE pn.user_email = NULL AND WHERE pn.assigned = NULL
 		@SuppressWarnings("unchecked")
 		List<PhoneNumber> freeNumbers = session.createQuery("FROM PhoneNumber WHERE username IS NULL").list();
 		PhoneNumber freeNumber = freeNumbers.get(0);
-		
+		System.out.println(freeNumber);
 		freeNumber.setUsername(user.getUsername());
 		freeNumber.setUser_email(user.getEmail());
-		System.out.println(freeNumber);
-		session.saveOrUpdate(freeNumber);
+		Transaction tx = null;
+		try {
+		    tx = session.beginTransaction();
+		    session.saveOrUpdate(freeNumber);
+		    tx.commit();
+		} catch(Exception e) {
+		    tx.rollback();
+		}
+				
 		session.close();
 		return freeNumber;
 	}

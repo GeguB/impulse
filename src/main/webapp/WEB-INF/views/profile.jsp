@@ -41,8 +41,8 @@
 						<tr>
 							<td>Phone number</td>
 							<td><c:choose>
-									<c:when test="${empty phone_number.number}">No phone number assigned to user</c:when>
-									<c:otherwise>${phone_number.number}</c:otherwise>
+									<c:when test="${empty user.phone_number}">No phone number assigned to user</c:when>
+									<c:otherwise>${user.phone_number}</c:otherwise>
 								</c:choose></td>
 						</tr>
 						<tr>

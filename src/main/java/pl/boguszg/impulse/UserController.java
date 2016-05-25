@@ -2,6 +2,7 @@ package pl.boguszg.impulse;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -167,8 +168,8 @@ public class UserController {
 		int dialer;
 		if (name != "anonymousUser") {
 			u = this.userService.getUserByName(name);
-			dialer = this.phoneNumberService.getPhoneNumberByName(name).getNumber();
-			
+			//dialer = this.phoneNumberService.getPhoneNumberByName(name).getNumber();
+			dialer = u.getPhone_number();
 			List<Call> calls = this.callService.getCallByDialer(dialer);
 			Summary callSum = this.callService.getSummary(dialer, "all", calls);
 			model.addAttribute("callList", calls);
@@ -202,6 +203,7 @@ public class UserController {
 			u = this.userService.getUserByName(name);
 			int userId = u.getId();
 			List<Deal> deals = this.dealService.listUserDeals(userId);
+			Collections.reverse(deals);
 			model.addAttribute("dealsList", deals);
 		}
 		model.addAttribute("user", u);
@@ -330,13 +332,13 @@ public class UserController {
 		model.addAttribute("user", u);
 		DateFormat time = new SimpleDateFormat("HH:mm:ss");
 		Date now = new Date();
-		PhoneNumber pn = new PhoneNumber();
-		try {
-			pn = this.phoneNumberService.getPhoneNumberByName(name);
-			model.addAttribute("phone_number", pn);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		PhoneNumber pn = new PhoneNumber();
+//		try {
+//			pn = this.phoneNumberService.getPhoneNumberByName(name);
+//			model.addAttribute("phone_number", pn);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 
 		model.addAttribute("serverTime", time.format(now));
 		return "profile";
