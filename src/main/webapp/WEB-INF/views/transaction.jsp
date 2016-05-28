@@ -19,14 +19,14 @@
 	<div id="main-content">
 		<div id="content">
 			<div class="inner">
+				<c:if test="${not empty error}">
+					<div class="error">${error}</div>
+				</c:if>
 				<c:choose>
 					<c:when test="${!empty plan}">
 						You have bought ${plan.name} for price of ${plan.price} PLN. Your account balance is now ${user.account} PLN.
 						<br />Transaction ID is ${deal.id}
 					</c:when>
-					<c:otherwise>
-						<h1>Nothing to show here!</h1>
-					</c:otherwise>
 				</c:choose>
 			</div>
 		</div>

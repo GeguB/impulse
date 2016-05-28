@@ -38,6 +38,11 @@
 					Password</h2>
 
 				<div class="login-wrap">
+
+					<c:if test="${not empty error}">
+						<div class="error">${error}</div>
+					</c:if>
+
 					<c:if test="${!empty users.username}">
 
 						<form:label path="ID">
@@ -59,14 +64,14 @@
 					<form:input path="password" type="password" class="form-control"
 						placeholder="Password" name='password' />
 					<form:input path="enabled" type="hidden" value="1" />
-<%-- 					<form:input path="phone_number" type="hidden" value="8888888" /> --%>
+					<%-- 					<form:input path="phone_number" type="hidden" value="8888888" /> --%>
 					<form:input path="roles_role" type="hidden" value="ROLE_USER" />
 					<br />
 
-					<c:if test="${empty user.username}">
+<%-- 					<c:if test="${empty user.username}"> --%>
 						<input type="submit" class="btn btn-theme btn-block"
 							value="<spring:message text="Register"/>" />
-					</c:if>
+<%-- 					</c:if> --%>
 					<span>Don't have an account yet?<br /> <a class=""
 						href="login"> Create an account </a>
 					</span>

@@ -13,21 +13,21 @@ import pl.boguszg.impulse.model.PhoneNumber;
 import pl.boguszg.impulse.model.User;
 
 @Repository
-public class PhoneNumberDAOImpl implements PhoneNumberDAO{
+public class PhoneNumberDAOImpl implements PhoneNumberDAO {
 
 	private static final Logger logger = LoggerFactory.getLogger(PlanDAOImpl.class);
 
 	private SessionFactory sessionFactory;
-	
-	public void setSessionFactory(SessionFactory sf){
+
+	public void setSessionFactory(SessionFactory sf) {
 		this.sessionFactory = sf;
 	}
-	
+
 	@Override
-	public PhoneNumber getPhoneNumberByName(String name){
-		Session session = this.sessionFactory.openSession();		
+	public PhoneNumber getPhoneNumberByName(String name) {
+		Session session = this.sessionFactory.openSession();
 		PhoneNumber pn = (PhoneNumber) session.load(PhoneNumber.class, new String(name));
-		logger.info("PhoneNumber loaded successfully, PhoneNumber details="+pn);
+		logger.info("PhoneNumber loaded successfully, PhoneNumber details=" + pn);
 		session.close();
 		return pn;
 	}
@@ -37,20 +37,28 @@ public class PhoneNumberDAOImpl implements PhoneNumberDAO{
 		Session session = this.sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
 		List<PhoneNumber> freeNumbers = session.createQuery("FROM PhoneNumber WHERE username IS NULL").list();
-		PhoneNumber freeNumber = freeNumbers.get(0);
-		System.out.println(freeNumber);
-		freeNumber.setUsername(user.getUsername());
-		freeNumber.setUser_email(user.getEmail());
-		Transaction tx = null;
 		try {
-		    tx = session.beginTransaction();
-		    session.saveOrUpdate(freeNumber);
-		    tx.commit();
-		} catch(Exception e) {
-		    tx.rollback();
+			PhoneNumber freeNumber = freeNumbers.get(0);
+			System.out.println(freeNumber);
+			freeNumber.setUsername(user.getUsername());
+			freeNumber.setUser_email(user.getEmail());
+			Transaction tx = null;
+			try {
+				tx = session.beginTransaction();
+				session.saveOrUpdate(freeNumber);
+				tx.commit();
+			} catch (Exception e) {
+				tx.rollback();
+			}			
+			session.close();
+			return freeNumber;
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("Operation unsuccessful from number");
+			PhoneNumber freeNumber = new PhoneNumber();
+			freeNumber.setNumber(0);
+			return freeNumber;
 		}
-				
-		session.close();
-		return freeNumber;
+
+		
 	}
 }

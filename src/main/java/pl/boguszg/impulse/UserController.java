@@ -168,24 +168,25 @@ public class UserController {
 		int dialer;
 		if (name != "anonymousUser") {
 			u = this.userService.getUserByName(name);
-			//dialer = this.phoneNumberService.getPhoneNumberByName(name).getNumber();
+			// dialer =
+			// this.phoneNumberService.getPhoneNumberByName(name).getNumber();
 			dialer = u.getPhone_number();
 			List<Call> calls = this.callService.getCallByDialer(dialer);
 			Summary callSum = this.callService.getSummary(dialer, "all", calls);
 			model.addAttribute("callList", calls);
-			
+
 			List<Text> texts = this.textService.getTextByDialer(dialer);
 			Summary textSum = this.textService.getSummary(dialer, "all", texts);
 			model.addAttribute("textList", texts);
-			
+
 			List<DataTransfer> dataTransfer = this.dataTransferService.getDataTransferByDialer(dialer);
 			Summary dtSum = this.dataTransferService.getSummary(dialer, "all", dataTransfer);
 			model.addAttribute("dataTransferList", dataTransfer);
-			
+
 			model.addAttribute("callSum", callSum);
 			model.addAttribute("textSum", textSum);
 			model.addAttribute("dtSum", dtSum);
-			
+
 		}
 		model.addAttribute("user", u);
 
@@ -255,16 +256,19 @@ public class UserController {
 				d.setPlan_ID(p.getId());
 				d.setUser_ID(u.getId());
 				this.dealService.addDeal(d);
-				System.out.println(d);
+
 				model.addAttribute("deal", d);
+
 			} else {
-				System.out.println("Not enough money");
+				model.addAttribute("error",
+						"TRANSACTION FAILED! You don't have enough money on your account to finish that transaction! Please, recharge your account and try again.");
+
 			}
 		}
+
 		model.addAttribute("user", u);
 
 		return "transaction";
-
 	}
 
 	@RequestMapping(value = "/recharge", method = RequestMethod.GET)
@@ -332,13 +336,13 @@ public class UserController {
 		model.addAttribute("user", u);
 		DateFormat time = new SimpleDateFormat("HH:mm:ss");
 		Date now = new Date();
-//		PhoneNumber pn = new PhoneNumber();
-//		try {
-//			pn = this.phoneNumberService.getPhoneNumberByName(name);
-//			model.addAttribute("phone_number", pn);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		// PhoneNumber pn = new PhoneNumber();
+		// try {
+		// pn = this.phoneNumberService.getPhoneNumberByName(name);
+		// model.addAttribute("phone_number", pn);
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
 
 		model.addAttribute("serverTime", time.format(now));
 		return "profile";
@@ -346,38 +350,40 @@ public class UserController {
 
 	// For add and update user both
 	@RequestMapping(value = "/user/add", method = RequestMethod.POST)
-	public String addUser(@ModelAttribute("user") User u, BindingResult result,
-			final RedirectAttributes redirectAttributes) {
-		if (result.hasErrors()) {
-			System.out.println("User already exists");
-			return "index";
-		} else {
-			if (u.getId() == 0) {
-				// new user, add it
-				this.userService.addUser(u);
-			} else {
-				// existing user, call update
-				this.userService.updateUser(u);
-			}
+	public String addUser(@ModelAttribute("user") User u) {
 
-			return "redirect:/users";
+		if (u.getId() == 0) {
+			// new user, add it
+			this.userService.addUser(u);
+		} else
+
+		{
+			// existing user, call update
+			this.userService.updateUser(u);
 		}
+
+		return "redirect:/users";
 
 	}
 
 	// For add and update user both
 	@RequestMapping(value = "/register/new", method = RequestMethod.POST)
-	public String registerUser(@ModelAttribute("user") User u, BindingResult result,
-			final RedirectAttributes redirectAttributes) {
+	public String registerUser(@ModelAttribute("user") User u, Model model) {
 
 		if (u.getId() == 0) {
 			// new user, add it
-			int phone_number = this.phoneNumberService.UnusedPhoneNumber(u).getNumber(); 
-			u.setPhone_number(phone_number);
-			this.userService.addUser(u);
-		}
-
-		return "redirect:/login";
+			int phone_number = this.phoneNumberService.UnusedPhoneNumber(u).getNumber();
+			if (phone_number != 0) {
+				u.setPhone_number(phone_number);
+				this.userService.addUser(u);
+				return "redirect:/login";
+			} else {
+				model.addAttribute("error",
+						"Currently no numbers are available for new users. Please try again later.");
+				return "register";
+			}
+		} else
+			return "redirect:/login";
 
 	}
 
